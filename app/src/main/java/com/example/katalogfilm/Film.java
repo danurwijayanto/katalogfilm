@@ -3,7 +3,7 @@ package com.example.katalogfilm;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class film implements Parcelable {
+public class Film implements Parcelable {
     private int film;
     private String judul;
     private String description;
@@ -41,7 +41,7 @@ public class film implements Parcelable {
         this.tanggalRilis = tanggalRilis;
     }
 
-    protected film(Parcel in) {
+    protected Film(Parcel in) {
         film = in.readInt();
         judul = in.readString();
         description = in.readString();
@@ -61,15 +61,15 @@ public class film implements Parcelable {
         return 0;
     }
 
-    public static final Creator<film> CREATOR = new Creator<film>() {
+    public static final Creator<Film> CREATOR = new Creator<Film>() {
         @Override
-        public film createFromParcel(Parcel in) {
-            return new film(in);
+        public Film createFromParcel(Parcel in) {
+            return new Film(in);
         }
 
         @Override
-        public film[] newArray(int size) {
-            return new film[size];
+        public Film[] newArray(int size) {
+            return new Film[size];
         }
     };
 }
