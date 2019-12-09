@@ -30,6 +30,6 @@
         android:layout_toRightOf="@+id/img_photo"
         android:ellipsize="end"
         android:maxLines="3"
-        android:text="@string/lorem"
+        android:text="@string/lorem"/>
 
 </RelativeLayout>
