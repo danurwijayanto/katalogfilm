@@ -2,6 +2,7 @@
     <string name="app_name">Katalog Film</string>
     <string name="nama_film">Nama Film</string>
     <string name="lorem">lorem ipsum dolor sit amet</string>
+    <string name="object_received">Object</string>
 
     <string-array name="data_name">
         <item>A Star Is Born </item>
