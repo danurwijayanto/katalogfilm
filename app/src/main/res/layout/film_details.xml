@@ -14,23 +14,42 @@
         android:layout_marginRight="16dp">
 
         <ImageView
-            android:id="@+id/tv_film_image"
-            android:layout_width="196dp"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/poster_glass"
-            android:contentDescription=""/>
+            android:id="@+id/film_image_details"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"/>
 
         <TextView
-            android:id="@+id/tv_description_film"
-            android:layout_width="match_parent"
+            android:id="@+id/film_judul_details"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/tv_film_image"
-            android:layout_toRightOf="@id/tv_film_image"
-            android:text="@string/lorem"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginStart="26dp"
+            android:layout_toEndOf="@id/film_image_details"
+            android:text="@string/nama_film"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/film_rilis_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/film_judul_details"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/film_image_details"
+            android:text="@string/nama_film"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/film_description_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/film_rilis_details"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/film_image_details"
+            android:ellipsize="end"
+            android:text="@string/lorem"/>
     </RelativeLayout>
 </ScrollView>
