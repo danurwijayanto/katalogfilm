@@ -45,4 +45,18 @@
         <item>@drawable/poster_venom</item>
         <item>@drawable/poster_glass</item>
     </array>
+
+    <string-array name="data_rilis">
+        <item>October 3, 2018</item>
+        <item>December 7, 2018</item>
+        <item>April 25, 2018</item>
+        <item>December 13, 2018</item>
+        <item>October 24, 2018</item>
+        <item>December 15, 2018</item>
+        <item>November 25, 2015</item>
+        <item>May 10, 2018</item>
+        <item>March 10, 2010</item>
+        <item>September 28, 2018</item>
+        <item>January 16, 2019</item>
+    </string-array>
 </resources>

@@ -9,6 +9,10 @@ public class FilmParcelable implements Parcelable {
     private String description;
     private String tanggalRilis;
 
+    public FilmParcelable() {
+
+    }
+
     public int getFilm() {
         return film;
     }
@@ -49,16 +53,16 @@ public class FilmParcelable implements Parcelable {
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(film);
         dest.writeString(judul);
         dest.writeString(description);
         dest.writeString(tanggalRilis);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<FilmParcelable> CREATOR = new Creator<FilmParcelable>() {

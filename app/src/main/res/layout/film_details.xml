@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@android:color/white"
+    android:padding="16dp">>
 
-    <TextView
-        android:id="@+id/tv_object_received"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/object_received" />
-</RelativeLayout>
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
+
+        <ImageView
+            android:id="@+id/tv_film_image"
+            android:layout_width="196dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/poster_glass"
+            android:contentDescription=""/>
+
+        <TextView
+            android:id="@+id/tv_description_film"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/tv_film_image"
+            android:layout_toRightOf="@id/tv_film_image"
+            android:text="@string/lorem"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="5dp"/>
+    </RelativeLayout>
+</ScrollView>
