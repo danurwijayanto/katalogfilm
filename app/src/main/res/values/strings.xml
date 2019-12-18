@@ -3,6 +3,10 @@
     <string name="nama_film">Nama Film</string>
     <string name="lorem">lorem ipsum dolor sit amet</string>
     <string name="object_received">Object</string>
+    <string name="dummy_photos">dummy_photos</string>
+    <string name="dummy_value">dummy-value</string>
+    <string name="stock">stock</string>
+    <string name="content_text">content-text</string>
 
     <string-array name="data_name">
         <item>A Star Is Born </item>
