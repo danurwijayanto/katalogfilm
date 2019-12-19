@@ -61,11 +61,4 @@
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="51dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="286dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
