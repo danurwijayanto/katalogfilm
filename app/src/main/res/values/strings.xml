@@ -27,6 +27,7 @@
     <string name="dummy_value">$735</string>
     <string name="dummy_photos">6 photos</string>
     <string name="spesifikasi">spesifikasi</string>
+    <string name="description">deskripsi</string>
 
     <string-array name="data_name">
         <item>A Star Is Born </item>
