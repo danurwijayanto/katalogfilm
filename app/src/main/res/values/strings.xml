@@ -33,6 +33,7 @@
     <string name="tab_text_2">TV Series</string>
     <string name="content_tab_movies">Movies</string>
     <string name="content_tab_tv">TV Series</string>
+    <string name="content_tab_text">This is Tab</string>
 
     <string-array name="data_name">
         <item>A Star Is Born </item>
