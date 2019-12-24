@@ -3,6 +3,7 @@ package com.example.katalogfilm;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -13,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -25,13 +28,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_recycle);
+        setContentView(R.layout.activity_main);
 
-        filmRecycle = findViewById(R.id.movie_list);
-        filmRecycle.setHasFixedSize(true);
+        SectionsPagerAdapter sectionPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        viewPager.setAdapter(sectionPagerAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
 
-        list.addAll(getListFilms());
-        showRecyclerList();
+        getSupportActionBar().setElevation(0);
+//        filmRecycle = findViewById(R.id.movie_list);
+//        filmRecycle.setHasFixedSize(true);
+//
+//        list.addAll(getListFilms());
+//        showRecyclerList();
 
 //        ListView listView = findViewById(R.id.lv_list);
 //        adapter = new FilmAdapter(this);
