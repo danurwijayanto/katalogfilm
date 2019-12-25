@@ -18,6 +18,11 @@ import java.util.ArrayList;
 
 public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.ListViewHolder>{
     private ArrayList<FilmParcelable> listFilm;
+    private OnItemClickCallback onItemClickCallback;
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
 
     public FilmAdapterRecycle(ArrayList<FilmParcelable> list) {
         this.listFilm = list;
@@ -30,7 +35,7 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
         FilmParcelable film = listFilm.get(position);
 
         Glide.with(holder.itemView.getContext())
@@ -39,6 +44,13 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
                 .into(holder.imgPhoto);
         holder.filmJudul.setText(film.getJudul());
         holder.filmDescription.setText(film.getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(listFilm.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -56,5 +68,9 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
             filmJudul = itemView.findViewById(R.id.film_item_name);
             filmDescription = itemView.findViewById(R.id.film_item_description);
         }
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(FilmParcelable data);
     }
 }

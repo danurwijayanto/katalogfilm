@@ -1,6 +1,7 @@
 package com.example.katalogfilm;
 
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -62,21 +64,43 @@ public class HomeFragment extends Fragment {
                 filmRecycle = view.findViewById(R.id.movie_list);
                 filmRecycle.setHasFixedSize(true);
 
-                list.addAll(getListFilms());
+                list.addAll(getList("Movie"));
                 showRecyclerList();
                 break;
             case 2:
+                filmRecycle = view.findViewById(R.id.movie_list);
+                filmRecycle.setHasFixedSize(true);
+
+                list.addAll(getList("TV"));
+                showRecyclerList();
                 break;
         }
 
 //        textView.setText(getString(R.string.content_tab_text) + " " + index);
     }
 
-    public ArrayList<FilmParcelable> getListFilms() {
-        String[] dataName = getResources().getStringArray(R.array.data_name);
-        String[] dataDescription = getResources().getStringArray(R.array.data_description);
-        TypedArray dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
-        String[] dataRilis = getResources().getStringArray(R.array.data_rilis);
+    public ArrayList<FilmParcelable> getList(String type) {
+        String[] dataName;
+        String[] dataDescription;
+        TypedArray dataPhoto;
+        String[] dataRilis;
+
+        switch (type) {
+            case "Movie":
+                dataName = getResources().getStringArray(R.array.data_name);
+                dataDescription = getResources().getStringArray(R.array.data_description);
+                dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
+                dataRilis = getResources().getStringArray(R.array.data_rilis);
+                break;
+            case "TV":
+                dataName = getResources().getStringArray(R.array.data_name);
+                dataDescription = getResources().getStringArray(R.array.data_description);
+                dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
+                dataRilis = getResources().getStringArray(R.array.data_rilis);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
 
         ArrayList<FilmParcelable> listFilm = new ArrayList<>();
         for (int i = 0; i < dataName.length; i++) {
@@ -91,10 +115,24 @@ public class HomeFragment extends Fragment {
         return listFilm;
     }
 
+
     private void showRecyclerList() {
         filmRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
         FilmAdapterRecycle filmAdapterRecycle = new FilmAdapterRecycle(list);
         filmRecycle.setAdapter(filmAdapterRecycle);
+
+        filmAdapterRecycle.setOnItemClickCallback(new FilmAdapterRecycle.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(FilmParcelable data) {
+//                Intent moveIntent = new Intent(MainActivity.this, DetailActivity.class);
+//                moveIntent.putExtra(String.valueOf(DetailActivity.image_gamelan), data.getPhoto());
+//                moveIntent.putExtra(DetailActivity.description, data.getDetail());
+//                startActivity(moveIntent);
+                Toast.makeText(getActivity(), "Kamu memilih " + data.getJudul(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
 
 }
