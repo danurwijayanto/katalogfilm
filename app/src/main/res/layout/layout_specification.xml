@@ -11,12 +11,12 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/spesifikasi"
+        android:text="@string/details"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_spec_display"
+        android:id="@+id/film_judul_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -28,17 +28,17 @@
         app:layout_constraintTop_toBottomOf="@+id/text_specification" />
 
     <TextView
-        android:id="@+id/text_spec_size_title"
+        android:id="@+id/film_rilis"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/size"
+        android:text="@string/tahun_rilis"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_spec_display" />
+        app:layout_constraintTop_toBottomOf="@+id/film_judul_details" />
 
     <TextView
-        android:id="@+id/text_spec_size"
+        android:id="@+id/film_rilis_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -47,20 +47,20 @@
         android:text="@string/content_specs_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_spec_display" />
+        app:layout_constraintTop_toBottomOf="@+id/film_judul_details" />
 
     <TextView
-        android:id="@+id/text_battery_title"
+        android:id="@+id/film_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/battery"
+        android:text="@string/description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_spec_size" />
+        app:layout_constraintTop_toBottomOf="@+id/film_rilis_details" />
 
     <TextView
-        android:id="@+id/text_battery"
+        android:id="@+id/film_description_details"
         android:layout_width="0dp"
         android:layout_height="266dp"
         android:layout_marginStart="8dp"
@@ -69,15 +69,15 @@
         android:text="@string/content_specs_battery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/text_spec_size" />
+        app:layout_constraintTop_toBottomOf="@+id/film_rilis_details" />
 
     <TextView
-        android:id="@+id/text_spec_display_title"
+        android:id="@+id/film_judul"
         android:layout_width="58dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/display"
+        android:text="@string/judul"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_specification" />
 

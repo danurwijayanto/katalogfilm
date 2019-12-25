@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -124,10 +125,28 @@ public class HomeFragment extends Fragment {
         filmAdapterRecycle.setOnItemClickCallback(new FilmAdapterRecycle.OnItemClickCallback() {
             @Override
             public void onItemClicked(FilmParcelable data) {
-//                Intent moveIntent = new Intent(MainActivity.this, DetailActivity.class);
-//                moveIntent.putExtra(String.valueOf(DetailActivity.image_gamelan), data.getPhoto());
-//                moveIntent.putExtra(DetailActivity.description, data.getDetail());
-//                startActivity(moveIntent);
+                FilmParcelable filmItemParcel = new FilmParcelable();
+                filmItemParcel.setFilm(data.getFilm());
+                filmItemParcel.setJudul(data.getJudul());
+                filmItemParcel.setDescription(data.getDescription());
+                filmItemParcel.setTanggalRilis(data.getTanggalRilis());
+
+                FilmDetailsFragment filmDetailsFragment = new FilmDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("EXTRA_FILM", filmItemParcel);
+                filmDetailsFragment.setArguments(bundle);
+
+                FragmentManager mFragmentManager = getFragmentManager();
+                if (mFragmentManager != null) {
+                    mFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.frame_container, filmDetailsFragment, FilmDetailsFragment.class.getSimpleName())
+                            .addToBackStack(null)
+                            .commit();
+                }
+//                Intent filmDetailsActivity = new Intent(getActivity(), FilmDetailsFragment.class);
+//                filmDetailsActivity.putExtra(FilmDetailsActivity.EXTRA_FILM, filmItemParcel);
+//                startActivity(filmDetailsActivity);
                 Toast.makeText(getActivity(), "Kamu memilih " + data.getJudul(), Toast.LENGTH_SHORT).show();
             }
         });
