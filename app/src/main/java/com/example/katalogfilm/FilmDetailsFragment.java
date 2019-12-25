@@ -3,6 +3,8 @@ package com.example.katalogfilm;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.example.katalogfilm.FilmDetailsActivity.EXTRA_FILM;
 
@@ -35,14 +38,13 @@ public class FilmDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         detailsFilmDescription = view.findViewById(R.id.film_description_details);
         detailsRelease = view.findViewById(R.id.film_rilis_details);
         detailsJudul = view.findViewById(R.id.film_judul_details);
         detailsFilmImage = view.findViewById(R.id.image_film);
-
-
     }
 
     @Override
