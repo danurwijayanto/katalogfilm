@@ -54,8 +54,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated (View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final TextView textView = view.findViewById(R.id.section_label);
-
         int index = 1;
         if (getArguments() != null) {
             index  = getArguments().getInt(ARG_SECTION_NUMBER);
