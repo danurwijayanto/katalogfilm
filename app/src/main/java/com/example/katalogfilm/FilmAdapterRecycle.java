@@ -12,11 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.ListViewHolder>{
+public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.ListViewHolder> {
     private ArrayList<FilmParcelable> listFilm;
     private OnItemClickCallback onItemClickCallback;
 
@@ -27,6 +25,7 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
     public FilmAdapterRecycle(ArrayList<FilmParcelable> list) {
         this.listFilm = list;
     }
+
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

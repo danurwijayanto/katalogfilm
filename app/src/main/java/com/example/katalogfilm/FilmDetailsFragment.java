@@ -17,11 +17,11 @@ import android.widget.TextView;
  * A simple {@link Fragment} subclass.
  */
 public class FilmDetailsFragment extends Fragment {
-    FilmParcelable filmDetailParcel = new FilmParcelable();
-    TextView detailsFilmDescription;
-    TextView detailsRelease;
-    TextView detailsJudul;
-    ImageView detailsFilmImage;
+    private FilmParcelable filmDetailParcel = new FilmParcelable();
+    private TextView detailsFilmDescription;
+    private TextView detailsRelease;
+    private TextView detailsJudul;
+    private ImageView detailsFilmImage;
 
     public FilmDetailsFragment() {
         // Required empty public constructor

@@ -75,8 +75,6 @@ public class HomeFragment extends Fragment {
                 showRecyclerList();
                 break;
         }
-
-//        textView.setText(getString(R.string.content_tab_text) + " " + index);
     }
 
     public ArrayList<FilmParcelable> getList(String type) {
@@ -143,10 +141,6 @@ public class HomeFragment extends Fragment {
                             .addToBackStack(null)
                             .commit();
                 }
-//                Intent filmDetailsActivity = new Intent(getActivity(), FilmDetailsFragment.class);
-//                filmDetailsActivity.putExtra(FilmDetailsActivity.EXTRA_FILM, filmItemParcel);
-//                startActivity(filmDetailsActivity);
-//                Toast.makeText(getActivity(), "Kamu memilih " + data.getJudul(), Toast.LENGTH_SHORT).show();
             }
         });
     }
