@@ -95,10 +95,10 @@ public class HomeFragment extends Fragment {
                 dataRilis = getResources().getStringArray(R.array.data_rilis);
                 break;
             case "TV":
-                dataName = getResources().getStringArray(R.array.data_name);
-                dataDescription = getResources().getStringArray(R.array.data_description);
-                dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
-                dataRilis = getResources().getStringArray(R.array.data_rilis);
+                dataName = getResources().getStringArray(R.array.data_name_tv);
+                dataDescription = getResources().getStringArray(R.array.data_description_tv);
+                dataPhoto = getResources().obtainTypedArray(R.array.data_photo_tv);
+                dataRilis = getResources().getStringArray(R.array.data_rilis_tv);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);

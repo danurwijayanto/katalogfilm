@@ -8,7 +8,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,57 +40,20 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
 
         getSupportActionBar().setElevation(0);
-//        filmRecycle = findViewById(R.id.movie_list);
-//        filmRecycle.setHasFixedSize(true);
-//
-//        list.addAll(getListFilms());
-//        showRecyclerList();
-
-//        ListView listView = findViewById(R.id.lv_list);
-//        adapter = new FilmAdapter(this);
-//        listView.setAdapter(adapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-//                FilmParcelable filmItemParcel = new FilmParcelable();
-//                filmItemParcel.setFilm(filmss.get(i).getFilm());
-//                filmItemParcel.setJudul(filmss.get(i).getJudul());
-//                filmItemParcel.setDescription(filmss.get(i).getDescription());
-//                filmItemParcel.setTanggalRilis(filmss.get(i).getTanggalRilis());
-//////
-//                Intent filmDetailsActivity = new Intent(MainActivity.this, FilmDetailsActivity.class);
-//                filmDetailsActivity.putExtra(FilmDetailsActivity.EXTRA_FILM, filmItemParcel);
-//                startActivity(filmDetailsActivity);
-////                Toast.makeText(MainActivity.this, filmss.get(i).getJudul(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-////        break;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-    public ArrayList<FilmParcelable> getListFilms() {
-        String[] dataName = getResources().getStringArray(R.array.data_name);
-        String[] dataDescription = getResources().getStringArray(R.array.data_description);
-        TypedArray dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
-        String[] dataRilis = getResources().getStringArray(R.array.data_rilis);
-
-        ArrayList<FilmParcelable> listFilm = new ArrayList<>();
-        for (int i = 0; i < dataName.length; i++) {
-            FilmParcelable film = new FilmParcelable();
-            film.setFilm(dataPhoto.getResourceId(i, -1));
-            film.setJudul(dataName[i]);
-            film.setDescription(dataDescription[i]);
-            film.setTanggalRilis(dataRilis[i]);
-
-            listFilm.add(film);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_change_settings) {
+            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+            startActivity(mIntent);
         }
-        return listFilm;
-    }
-
-    private void showRecyclerList() {
-        filmRecycle.setLayoutManager(new LinearLayoutManager(this));
-        FilmAdapterRecycle filmAdapterRecycle = new FilmAdapterRecycle(list);
-        filmRecycle.setAdapter(filmAdapterRecycle);
+        return super.onOptionsItemSelected(item);
     }
 }
