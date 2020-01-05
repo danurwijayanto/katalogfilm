@@ -1,12 +1,17 @@
 package com.example.katalogfilm;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,10 +20,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 /**
@@ -28,7 +35,9 @@ public class HomeFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private RecyclerView filmRecycle;
-    private ArrayList<FilmParcelable> list = new ArrayList<>();
+    private ProgressBar progressBar;
+    private FilmViewModel mainViewModel;
+    private BroadcastReceiver mLangReceiver;
 
     public static HomeFragment newInstance(int index) {
         HomeFragment fragment = new HomeFragment();
@@ -51,9 +60,12 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated (View view, Bundle savedInstanceState) {
+    public void onViewCreated (final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        filmRecycle = view.findViewById(R.id.movie_list);
+        filmRecycle.setHasFixedSize(true);
+        progressBar = view.findViewById(R.id.progressBar);
+        Log.d("LOG_BAHASA_0", "showRecyclerList: "+ Locale.getDefault().toLanguageTag());
         int index = 1;
         if (getArguments() != null) {
             index  = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -61,72 +73,45 @@ public class HomeFragment extends Fragment {
 
         switch (index) {
             case 1:
-                filmRecycle = view.findViewById(R.id.movie_list);
-                filmRecycle.setHasFixedSize(true);
-
-                list.addAll(getList("Movie"));
-                showRecyclerList();
+                showRecyclerList("Movie", "en-US");
                 break;
             case 2:
-                filmRecycle = view.findViewById(R.id.movie_list);
-                filmRecycle.setHasFixedSize(true);
-
-                list.addAll(getList("TV"));
-                showRecyclerList();
+                showRecyclerList("TV", "en-US");
                 break;
         }
     }
 
-    public ArrayList<FilmParcelable> getList(String type) {
-        String[] dataName;
-        String[] dataDescription;
-        TypedArray dataPhoto;
-        String[] dataRilis;
-
-        switch (type) {
-            case "Movie":
-                dataName = getResources().getStringArray(R.array.data_name);
-                dataDescription = getResources().getStringArray(R.array.data_description);
-                dataPhoto = getResources().obtainTypedArray(R.array.data_photo);
-                dataRilis = getResources().getStringArray(R.array.data_rilis);
-                break;
-            case "TV":
-                dataName = getResources().getStringArray(R.array.data_name_tv);
-                dataDescription = getResources().getStringArray(R.array.data_description_tv);
-                dataPhoto = getResources().obtainTypedArray(R.array.data_photo_tv);
-                dataRilis = getResources().getStringArray(R.array.data_rilis_tv);
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
-        }
-
-        ArrayList<FilmParcelable> listFilm = new ArrayList<>();
-        for (int i = 0; i < dataName.length; i++) {
-            FilmParcelable film = new FilmParcelable();
-            film.setFilm(dataPhoto.getResourceId(i, -1));
-            film.setJudul(dataName[i]);
-            film.setDescription(dataDescription[i]);
-            film.setTanggalRilis(dataRilis[i]);
-
-            listFilm.add(film);
-        }
-        return listFilm;
-    }
-
-
-    private void showRecyclerList() {
+    private void showRecyclerList(String param, String language) {
         filmRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
-        FilmAdapterRecycle filmAdapterRecycle = new FilmAdapterRecycle(list);
+
+        final FilmAdapterRecycle filmAdapterRecycle = new FilmAdapterRecycle();
+        filmAdapterRecycle.notifyDataSetChanged();
         filmRecycle.setAdapter(filmAdapterRecycle);
+
+        mainViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(FilmViewModel.class);
+        mainViewModel.setData(param, language);
+
+        showLoading(true);
+
+        mainViewModel.getData().observe(this, new Observer<ArrayList<FilmParcelable>>() {
+            @Override
+            public void onChanged(ArrayList<FilmParcelable> filmItems) {
+                if (filmItems != null) {
+                    filmAdapterRecycle.setData(filmItems);
+                    showLoading(false);
+                }
+            }
+        });
 
         filmAdapterRecycle.setOnItemClickCallback(new FilmAdapterRecycle.OnItemClickCallback() {
             @Override
             public void onItemClicked(FilmParcelable data) {
                 FilmParcelable filmItemParcel = new FilmParcelable();
-                filmItemParcel.setFilm(data.getFilm());
+                filmItemParcel.setCyrcleImage(data.getCyrcleImage());
                 filmItemParcel.setJudul(data.getJudul());
                 filmItemParcel.setDescription(data.getDescription());
                 filmItemParcel.setTanggalRilis(data.getTanggalRilis());
+                filmItemParcel.setPosterImage(data.getPosterImage());
 
                 FilmDetailsFragment filmDetailsFragment = new FilmDetailsFragment();
                 Bundle bundle = new Bundle();
@@ -145,6 +130,11 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
-
+    private void showLoading(Boolean state) {
+        if (state) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
 }

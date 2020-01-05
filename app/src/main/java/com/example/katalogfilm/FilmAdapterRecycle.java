@@ -15,15 +15,26 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 
 public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.ListViewHolder> {
-    private ArrayList<FilmParcelable> listFilm;
+    private ArrayList<FilmParcelable> listFilm = new ArrayList<>();
     private OnItemClickCallback onItemClickCallback;
+
+    public void setData(ArrayList<FilmParcelable> items) {
+        listFilm.clear();
+        listFilm.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public void addItem(final FilmParcelable item) {
+        listFilm.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        listFilm.clear();
+    }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
-    }
-
-    public FilmAdapterRecycle(ArrayList<FilmParcelable> list) {
-        this.listFilm = list;
     }
 
     @NonNull
@@ -38,7 +49,7 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
         FilmParcelable film = listFilm.get(position);
 
         Glide.with(holder.itemView.getContext())
-                .load(film.getFilm())
+                .load(film.getCyrcleImage())
                 .apply(new RequestOptions().override(55, 55))
                 .into(holder.imgPhoto);
         holder.filmJudul.setText(film.getJudul());

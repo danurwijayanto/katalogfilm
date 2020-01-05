@@ -4,21 +4,35 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class FilmParcelable implements Parcelable {
-    private int film;
+
     private String judul;
     private String description;
     private String tanggalRilis;
+    private String cyrcleImage;
+    private String posterImage;
+
+    public String getCyrcleImage() {
+        return cyrcleImage;
+    }
+
+    public void setCyrcleImage(String cyrcleImage) {
+        this.cyrcleImage = cyrcleImage;
+    }
+
+    public String getPosterImage() {
+        return posterImage;
+    }
+
+    public void setPosterImage(String posterImage) {
+        this.posterImage = posterImage;
+    }
+
+    public static Creator<FilmParcelable> getCREATOR() {
+        return CREATOR;
+    }
 
     public FilmParcelable() {
 
-    }
-
-    public int getFilm() {
-        return film;
-    }
-
-    public void setFilm(int film) {
-        this.film = film;
     }
 
     public String getJudul() {
@@ -46,18 +60,20 @@ public class FilmParcelable implements Parcelable {
     }
 
     protected FilmParcelable(Parcel in) {
-        film = in.readInt();
         judul = in.readString();
         description = in.readString();
         tanggalRilis = in.readString();
+        cyrcleImage = in.readString();
+        posterImage = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(film);
         dest.writeString(judul);
         dest.writeString(description);
         dest.writeString(tanggalRilis);
+        dest.writeString(cyrcleImage);
+        dest.writeString(posterImage);
     }
 
     @Override

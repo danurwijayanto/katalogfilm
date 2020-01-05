@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -52,17 +55,18 @@ public class FilmDetailsFragment extends Fragment {
             filmDetailParcel = bundle.getParcelable("EXTRA_FILM");
         }
 
-//        FilmParcelable filmData = getActivity().getIntent().getParcelableExtra(EXTRA_FILM);
-
         String judulFilm = filmDetailParcel.getJudul();
         String descFilm = filmDetailParcel.getDescription();
-        Integer imageFilm = filmDetailParcel.getFilm();
+        String imageFilm = filmDetailParcel.getPosterImage();
         String rilisFilm = filmDetailParcel.getTanggalRilis();
 
         detailsFilmDescription.setText(descFilm);
         detailsRelease.setText(rilisFilm);
         detailsJudul.setText(judulFilm);
-        detailsFilmImage.setImageResource(imageFilm);
+
+        Glide.with(this)
+                .load(imageFilm)
+                .into(detailsFilmImage);
     }
 
 }
