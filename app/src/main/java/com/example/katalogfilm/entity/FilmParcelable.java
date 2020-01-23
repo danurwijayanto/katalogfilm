@@ -1,15 +1,25 @@
-package com.example.katalogfilm;
+package com.example.katalogfilm.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class FilmParcelable implements Parcelable {
 
+    private Integer id;
     private String judul;
     private String description;
     private String tanggalRilis;
     private String cyrcleImage;
     private String posterImage;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 
     public String getCyrcleImage() {
         return cyrcleImage;
@@ -60,6 +70,7 @@ public class FilmParcelable implements Parcelable {
     }
 
     protected FilmParcelable(Parcel in) {
+        id = in.readInt();
         judul = in.readString();
         description = in.readString();
         tanggalRilis = in.readString();
@@ -69,6 +80,7 @@ public class FilmParcelable implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(judul);
         dest.writeString(description);
         dest.writeString(tanggalRilis);

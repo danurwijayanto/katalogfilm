@@ -41,4 +41,7 @@
     <string name="judul">Title</string>
     <string name="tahun_rilis">Release</string>
     <string name="change_language_settings">Language</string>
+    <string name="do_bookmark">Do Bookmark</string>
+    <string name="show_bookmark">List Bookmark</string>
+    <string name="favourite_list">Favourite List</string>
 </resources>
