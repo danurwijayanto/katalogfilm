@@ -11,5 +11,6 @@ public class Bookmark {
         public static String TANGGAL_RILIS = "tanggalRilis";
         public static String CYRCLE_IMAGE = "cyrcleImage";
         public static String POSTER_IMAGE = "posterImage";
+        public static String CATEGORY = "category";
     }
 }

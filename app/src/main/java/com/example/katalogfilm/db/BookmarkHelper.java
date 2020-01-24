@@ -13,6 +13,7 @@ import com.example.katalogfilm.entity.Movie;
 import java.util.ArrayList;
 
 import static android.provider.BaseColumns._ID;
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CATEGORY;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CYRCLE_IMAGE;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.DESCRIPTION;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.POSTER_IMAGE;
@@ -103,6 +104,37 @@ public class BookmarkHelper {
                 movie.setTanggalRilis(cursor.getString(cursor.getColumnIndexOrThrow(TANGGAL_RILIS)));
                 movie.setPosterImage(cursor.getString(cursor.getColumnIndexOrThrow(POSTER_IMAGE)));
                 movie.setCyrcleImage(cursor.getString(cursor.getColumnIndexOrThrow(CYRCLE_IMAGE)));
+                arrayList.add(movie);
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
+    }
+
+    public ArrayList<Movie> getAllDataByCategory(String category) {
+        Cursor cursor = database.query(
+                TABLE_NAME,
+                null,
+                CATEGORY + " = ?",
+                new String[]{category},
+                null,
+                null,
+                _ID + " ASC",
+                null);
+        cursor.moveToFirst();
+        ArrayList<Movie> arrayList = new ArrayList<>();
+        Movie movie;
+        if (cursor.getCount() > 0) {
+            do {
+                movie = new Movie();
+                movie.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                movie.setJudul(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+                movie.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
+                movie.setTanggalRilis(cursor.getString(cursor.getColumnIndexOrThrow(TANGGAL_RILIS)));
+                movie.setPosterImage(cursor.getString(cursor.getColumnIndexOrThrow(POSTER_IMAGE)));
+                movie.setCyrcleImage(cursor.getString(cursor.getColumnIndexOrThrow(CYRCLE_IMAGE)));
+                movie.setCategory(cursor.getString(cursor.getColumnIndexOrThrow(CATEGORY)));
                 arrayList.add(movie);
                 cursor.moveToNext();
             } while (!cursor.isAfterLast());

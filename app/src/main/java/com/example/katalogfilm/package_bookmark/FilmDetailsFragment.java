@@ -24,6 +24,7 @@ import com.example.katalogfilm.R;
 import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.entity.Movie;
 
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CATEGORY;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CYRCLE_IMAGE;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.DESCRIPTION;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.POSTER_IMAGE;
@@ -43,6 +44,7 @@ public class FilmDetailsFragment extends Fragment {
     private String descFilm;
     private String imageFilm;
     private String rilisFilm;
+    private String category;
     private MenuItem removeBookmark;
     private MenuItem doBookmark;
 
@@ -72,6 +74,7 @@ public class FilmDetailsFragment extends Fragment {
                 values.put(TANGGAL_RILIS,rilisFilm);
                 values.put(CYRCLE_IMAGE,imageFilm);
                 values.put(POSTER_IMAGE,imageFilm);
+                values.put(CATEGORY,category);
 //                Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
                 long result = BookmarkHelper.insert(values);
                 if (result > 0) {
@@ -86,7 +89,7 @@ public class FilmDetailsFragment extends Fragment {
 
                 long resultDelete = BookmarkHelper.deleteByJudul(String.valueOf(judulFilm));
                 if (resultDelete > 0) {
-                    Toast.makeText(getContext(), "Suksess menghapus data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Sukses menghapus data", Toast.LENGTH_SHORT).show();
                     getActivity().getFragmentManager().popBackStack();
                 } else {
                     Toast.makeText(getContext(), "Gagal menghapus data", Toast.LENGTH_SHORT).show();
@@ -94,6 +97,7 @@ public class FilmDetailsFragment extends Fragment {
 
                 removeBookmark.setVisible(false);
                 doBookmark.setVisible(true);
+                getActivity().getFragmentManager().popBackStack();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -128,6 +132,7 @@ public class FilmDetailsFragment extends Fragment {
         descFilm = filmDetailParcel.getDescription();
         imageFilm = filmDetailParcel.getPosterImage();
         rilisFilm = filmDetailParcel.getTanggalRilis();
+        category = filmDetailParcel.getCategory();
 
         detailsFilmDescription.setText(descFilm);
         detailsRelease.setText(rilisFilm);

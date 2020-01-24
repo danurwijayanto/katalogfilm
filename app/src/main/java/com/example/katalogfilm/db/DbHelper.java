@@ -13,6 +13,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL,"+
                     " %s TEXT NOT NULL,"+
+                    " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL)",
             Bookmark.TABLE_NAME,
             Bookmark.BookmarkColumns._ID,
@@ -20,7 +21,8 @@ public class DbHelper extends SQLiteOpenHelper {
             Bookmark.BookmarkColumns.DESCRIPTION,
             Bookmark.BookmarkColumns.TANGGAL_RILIS,
             Bookmark.BookmarkColumns.POSTER_IMAGE,
-            Bookmark.BookmarkColumns.CYRCLE_IMAGE
+            Bookmark.BookmarkColumns.CYRCLE_IMAGE,
+            Bookmark.BookmarkColumns.CATEGORY
     );
 
     public DbHelper(Context context) {

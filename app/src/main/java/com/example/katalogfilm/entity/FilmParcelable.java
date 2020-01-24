@@ -12,6 +12,16 @@ public class FilmParcelable implements Parcelable {
     private String cyrcleImage;
     private String posterImage;
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    private String category;
+
     public Integer getId() {
         return id;
     }
@@ -76,6 +86,7 @@ public class FilmParcelable implements Parcelable {
         tanggalRilis = in.readString();
         cyrcleImage = in.readString();
         posterImage = in.readString();
+        category = in.readString();
     }
 
     @Override
@@ -86,6 +97,7 @@ public class FilmParcelable implements Parcelable {
         dest.writeString(tanggalRilis);
         dest.writeString(cyrcleImage);
         dest.writeString(posterImage);
+        dest.writeString(category);
     }
 
     @Override

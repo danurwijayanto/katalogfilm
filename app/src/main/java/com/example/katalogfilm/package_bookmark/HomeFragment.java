@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void showRecyclerList(String param, String language) {
+    private void showRecyclerList(final String param, String language) {
         filmRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final FilmAdapterRecycle filmAdapterRecycle = new FilmAdapterRecycle();
@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment {
         BookmarkHelper bookmarkHelper = new BookmarkHelper(getActivity());
         bookmarkHelper.open();
         // Ambil semua data di database
-        ArrayList<Movie> movies = bookmarkHelper.getAllData();
+        ArrayList<Movie> movies = bookmarkHelper.getAllDataByCategory(param);
         filmAdapterRecycle.setData(movies);
 
 //        showLoading(true);
@@ -98,6 +98,7 @@ public class HomeFragment extends Fragment {
                 filmItemParcel.setDescription(data.getDescription());
                 filmItemParcel.setTanggalRilis(data.getTanggalRilis());
                 filmItemParcel.setPosterImage(data.getPosterImage());
+                filmItemParcel.setCategory(param);
 
                 FilmDetailsFragment filmDetailsFragment = new FilmDetailsFragment();
                 Bundle bundle = new Bundle();

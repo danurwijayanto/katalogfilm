@@ -12,6 +12,16 @@ public class Movie implements Parcelable {
     private String cyrcleImage;
     private String posterImage;
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    private String category;
+
 //    public Movie(int id, String judul, String description, String tanggalRilis, String cyrcleImage, String posterImage) {
     public Movie() {
 //        this.id = id;
@@ -33,6 +43,7 @@ public class Movie implements Parcelable {
         tanggalRilis = in.readString();
         cyrcleImage = in.readString();
         posterImage = in.readString();
+        category = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -113,5 +124,6 @@ public class Movie implements Parcelable {
         dest.writeString(tanggalRilis);
         dest.writeString(cyrcleImage);
         dest.writeString(posterImage);
+        dest.writeString(category);
     }
 }

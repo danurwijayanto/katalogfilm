@@ -26,6 +26,7 @@ import com.example.katalogfilm.db.Bookmark;
 import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.entity.FilmParcelable;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns;
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CATEGORY;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CYRCLE_IMAGE;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.DESCRIPTION;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.POSTER_IMAGE;
@@ -45,6 +46,7 @@ public class FilmDetailsFragment extends Fragment {
     private String descFilm;
     private String imageFilm;
     private String rilisFilm;
+    private String category;
 
     public FilmDetailsFragment() {
         // Required empty public constructor
@@ -67,12 +69,13 @@ public class FilmDetailsFragment extends Fragment {
                 values.put(TANGGAL_RILIS,rilisFilm);
                 values.put(CYRCLE_IMAGE,imageFilm);
                 values.put(POSTER_IMAGE,imageFilm);
+                values.put(CATEGORY,category);
                 Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
                 long result = BookmarkHelper.insert(values);
                 if (result > 0) {
-                    Toast.makeText(getContext(), "Suksess Tambah Data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Suksess menambahkan bookmark", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "Gagal menambah data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Gagal menambah bookmark", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -109,6 +112,7 @@ public class FilmDetailsFragment extends Fragment {
         descFilm = filmDetailParcel.getDescription();
         imageFilm = filmDetailParcel.getPosterImage();
         rilisFilm = filmDetailParcel.getTanggalRilis();
+        category = filmDetailParcel.getCategory();
 
         detailsFilmDescription.setText(descFilm);
         detailsRelease.setText(rilisFilm);
