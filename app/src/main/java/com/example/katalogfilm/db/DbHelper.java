@@ -11,8 +11,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     + " (%s INTEGER PRIMARY KEY AUTOINCREMENT," +
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL," +
-                    " %s TEXT NOT NULL)"+
-                    " %s TEXT NOT NULL)"+
+                    " %s TEXT NOT NULL,"+
+                    " %s TEXT NOT NULL,"+
                     " %s TEXT NOT NULL)",
             Bookmark.TABLE_NAME,
             Bookmark.BookmarkColumns._ID,

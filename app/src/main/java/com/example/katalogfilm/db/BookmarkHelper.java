@@ -8,7 +8,16 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.katalogfilm.entity.Movie;
+
+import java.util.ArrayList;
+
 import static android.provider.BaseColumns._ID;
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CYRCLE_IMAGE;
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.DESCRIPTION;
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.POSTER_IMAGE;
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.TANGGAL_RILIS;
+import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.TITLE;
 import static com.example.katalogfilm.db.Bookmark.TABLE_NAME;
 
 public class BookmarkHelper {
@@ -17,7 +26,7 @@ public class BookmarkHelper {
     private static BookmarkHelper INSTANCE;
     private static SQLiteDatabase database;
 
-    private BookmarkHelper(Context context) {
+    public BookmarkHelper(Context context) {
         dataBaseHelper = new DbHelper(context);
     }
 
@@ -64,7 +73,7 @@ public class BookmarkHelper {
                 null);
     }
 
-    public long insert(ContentValues values) {
+    public static long insert(ContentValues values) {
         return database.insert(DATABASE_TABLE, null, values);
     }
 
@@ -74,5 +83,31 @@ public class BookmarkHelper {
 
     public int deleteById(String id) {
         return database.delete(DATABASE_TABLE, _ID + " = ?", new String[]{id});
+    }
+
+    public static int deleteByJudul(String judul) {
+        return database.delete(DATABASE_TABLE, TITLE + " = ?", new String[]{judul});
+    }
+
+    public ArrayList<Movie> getAllData() {
+        Cursor cursor = database.query(TABLE_NAME, null, null, null, null, null, _ID + " ASC", null);
+        cursor.moveToFirst();
+        ArrayList<Movie> arrayList = new ArrayList<>();
+        Movie movie;
+        if (cursor.getCount() > 0) {
+            do {
+                movie = new Movie();
+                movie.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
+                movie.setJudul(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
+                movie.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
+                movie.setTanggalRilis(cursor.getString(cursor.getColumnIndexOrThrow(TANGGAL_RILIS)));
+                movie.setPosterImage(cursor.getString(cursor.getColumnIndexOrThrow(POSTER_IMAGE)));
+                movie.setCyrcleImage(cursor.getString(cursor.getColumnIndexOrThrow(CYRCLE_IMAGE)));
+                arrayList.add(movie);
+                cursor.moveToNext();
+            } while (!cursor.isAfterLast());
+        }
+        cursor.close();
+        return arrayList;
     }
 }

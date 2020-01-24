@@ -5,6 +5,11 @@
         android:title="@string/do_bookmark"
         android:icon = "@drawable/ic_favorite_border"
         app:showAsAction="always" />
+    <item android:id="@+id/remove_bookmark"
+        android:title="@string/remove_bookmark"
+        android:icon = "@drawable/ic_favorite"
+        android:visible="false"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_change_settings"
         android:title="@string/change_language_settings"

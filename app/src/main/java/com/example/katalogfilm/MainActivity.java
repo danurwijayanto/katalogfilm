@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.entity.FilmParcelable;
+import com.example.katalogfilm.package_bookmark.BookmarkActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -20,12 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView filmRecycle;
     private ArrayList<FilmParcelable> list = new ArrayList<>();
-
+    private BookmarkHelper bookmarkHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bookmarkHelper = BookmarkHelper.getInstance(getApplicationContext());
+        bookmarkHelper.open();
 
         SectionsPagerAdapter sectionPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -48,13 +53,18 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_change_settings:
                 Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
                 startActivity(mIntent);
-            case R.id.add_bookmark:
-                Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.show_bookmark:
-//                Toast.makeText(this, "test2", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Show Bookmark", Toast.LENGTH_SHORT).show();
+                Intent moveIntent = new Intent(MainActivity.this, BookmarkActivity.class);
+                startActivity(moveIntent);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bookmarkHelper.close();
     }
 }

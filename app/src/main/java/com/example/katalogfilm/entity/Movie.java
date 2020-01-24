@@ -12,13 +12,14 @@ public class Movie implements Parcelable {
     private String cyrcleImage;
     private String posterImage;
 
-    public Movie(int id, String judul, String description, String tanggalRilis, String cyrcleImage, String posterImage) {
-        this.id = id;
-        this.judul = judul;
-        this.description = description;
-        this.tanggalRilis = tanggalRilis;
-        this.cyrcleImage = cyrcleImage;
-        this.posterImage = posterImage;
+//    public Movie(int id, String judul, String description, String tanggalRilis, String cyrcleImage, String posterImage) {
+    public Movie() {
+//        this.id = id;
+//        this.judul = judul;
+//        this.description = description;
+//        this.tanggalRilis = tanggalRilis;
+//        this.cyrcleImage = cyrcleImage;
+//        this.posterImage = posterImage;
     }
 
     protected Movie(Parcel in) {
