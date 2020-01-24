@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.katalogfilm.R;
 import com.example.katalogfilm.package_bookmark.SectionsPagerAdapter;
@@ -19,8 +20,9 @@ public class BookmarkActivity extends AppCompatActivity {
     private ArrayList<FilmParcelable> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_bookmark);
+        String actionBarTitle = "Bookmark List";
+        getSupportActionBar().setTitle(actionBarTitle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -33,5 +35,4 @@ public class BookmarkActivity extends AppCompatActivity {
 
         getSupportActionBar().setElevation(0);
     }
-
 }

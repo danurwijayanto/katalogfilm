@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bookmarkHelper = BookmarkHelper.getInstance(getApplicationContext());
+        bookmarkHelper = bookmarkHelper.getInstance(getApplicationContext());
         bookmarkHelper.open();
 
         SectionsPagerAdapter sectionPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
