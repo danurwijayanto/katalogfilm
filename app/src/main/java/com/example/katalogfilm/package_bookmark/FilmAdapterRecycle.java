@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.katalogfilm.R;
-import com.example.katalogfilm.entity.Movie;
+import com.example.katalogfilm.entity.FilmParcelable;
 
 import java.util.ArrayList;
 
 public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.ListViewHolder> {
-    private ArrayList<Movie> listFilm = new ArrayList<>();
+    private ArrayList<FilmParcelable> listFilm = new ArrayList<>();
     private OnItemClickCallback onItemClickCallback;
 
-    public void setData(ArrayList<Movie> items) {
+    public void setData(ArrayList<FilmParcelable> items) {
         listFilm.clear();
         listFilm.addAll(items);
         notifyDataSetChanged();
     }
 
-    public void addItem(final Movie item) {
+    public void addItem(final FilmParcelable item) {
         listFilm.add(item);
         notifyDataSetChanged();
     }
@@ -48,7 +48,7 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
 
     @Override
     public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
-        Movie film = listFilm.get(position);
+        FilmParcelable film = listFilm.get(position);
 
         Glide.with(holder.itemView.getContext())
                 .load(film.getCyrcleImage())
@@ -83,6 +83,6 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
     }
 
     public interface OnItemClickCallback {
-        void onItemClicked(Movie data);
+        void onItemClicked(FilmParcelable data);
     }
 }

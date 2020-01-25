@@ -2,9 +2,7 @@ package com.example.katalogfilm.package_bookmark;
 
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.katalogfilm.R;
 import com.example.katalogfilm.db.BookmarkHelper;
-import com.example.katalogfilm.entity.Movie;
+import com.example.katalogfilm.entity.FilmParcelable;
 
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CATEGORY;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CYRCLE_IMAGE;
@@ -35,7 +33,7 @@ import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.TITLE;
  * A simple {@link Fragment} subclass.
  */
 public class FilmDetailsFragment extends Fragment {
-    private Movie filmDetailParcel = new Movie();
+    private FilmParcelable filmDetailParcel = new FilmParcelable();
     private TextView detailsFilmDescription;
     private TextView detailsRelease;
     private TextView detailsJudul;

@@ -8,7 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.katalogfilm.entity.Movie;
+import com.example.katalogfilm.entity.FilmParcelable;
 
 import java.util.ArrayList;
 
@@ -90,14 +90,14 @@ public class BookmarkHelper {
         return database.delete(DATABASE_TABLE, TITLE + " = ?", new String[]{judul});
     }
 
-    public ArrayList<Movie> getAllData() {
+    public ArrayList<FilmParcelable> getAllData() {
         Cursor cursor = database.query(TABLE_NAME, null, null, null, null, null, _ID + " ASC", null);
         cursor.moveToFirst();
-        ArrayList<Movie> arrayList = new ArrayList<>();
-        Movie movie;
+        ArrayList<FilmParcelable> arrayList = new ArrayList<>();
+        FilmParcelable movie;
         if (cursor.getCount() > 0) {
             do {
-                movie = new Movie();
+                movie = new FilmParcelable();
                 movie.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 movie.setJudul(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
                 movie.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));
@@ -112,7 +112,7 @@ public class BookmarkHelper {
         return arrayList;
     }
 
-    public ArrayList<Movie> getAllDataByCategory(String category) {
+    public static ArrayList<FilmParcelable> getAllDataByCategory(String category) {
         Cursor cursor = database.query(
                 TABLE_NAME,
                 null,
@@ -123,11 +123,11 @@ public class BookmarkHelper {
                 _ID + " ASC",
                 null);
         cursor.moveToFirst();
-        ArrayList<Movie> arrayList = new ArrayList<>();
-        Movie movie;
+        ArrayList<FilmParcelable> arrayList = new ArrayList<>();
+        FilmParcelable movie;
         if (cursor.getCount() > 0) {
             do {
-                movie = new Movie();
+                movie = new FilmParcelable();
                 movie.setId(cursor.getInt(cursor.getColumnIndexOrThrow(_ID)));
                 movie.setJudul(cursor.getString(cursor.getColumnIndexOrThrow(TITLE)));
                 movie.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)));

@@ -2,7 +2,6 @@ package com.example.katalogfilm.package_bookmark;
 
 import android.content.BroadcastReceiver;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.katalogfilm.package_bookmark.FilmAdapterRecycle;
-import com.example.katalogfilm.package_bookmark.FilmDetailsFragment;
+import com.example.katalogfilm.package_bookmark.FilmViewModel;
+import com.example.katalogfilm.entity.FilmParcelable;
 import com.example.katalogfilm.db.BookmarkHelper;
-import com.example.katalogfilm.entity.Movie;
 import com.example.katalogfilm.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -31,6 +28,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView filmRecycle;
     private ProgressBar progressBar;
     private BroadcastReceiver mLangReceiver;
+    private FilmViewModel mainViewModel;
 
     public static HomeFragment newInstance(int index) {
         HomeFragment fragment = new HomeFragment();
@@ -81,21 +79,41 @@ public class HomeFragment extends Fragment {
         filmAdapterRecycle.notifyDataSetChanged();
         filmRecycle.setAdapter(filmAdapterRecycle);
 
-        BookmarkHelper bookmarkHelper = new BookmarkHelper(getActivity());
-        bookmarkHelper.open();
         // Ambil semua data di database
-        ArrayList<Movie> movies = bookmarkHelper.getAllDataByCategory(param);
-        if (movies.size() > 0) {
-            filmAdapterRecycle.setData(movies);
-        }else{
-            filmAdapterRecycle.setData(new ArrayList<Movie>());
-            showSnackbarMessage("Tidak ada data saat ini");
-        }
+
+        mainViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(FilmViewModel.class);
+        mainViewModel.setData(param, language);
+
+        showLoading(true);
+
+        mainViewModel.getData().observe(this, new Observer<ArrayList<FilmParcelable>>() {
+            @Override
+            public void onChanged(ArrayList<FilmParcelable> filmItems) {
+                if (filmItems.size() <= 0) {
+                    showSnackbarMessage("Tidak ada data saat ini");
+                }
+
+                if (filmItems != null) {
+                    filmAdapterRecycle.setData(filmItems);
+                    showLoading(false);
+                }
+            }
+        });
+//        BookmarkHelper bookmarkHelper = new BookmarkHelper(getActivity());
+//        bookmarkHelper.open();
+//        ArrayList<FilmParcelable> movies = bookmarkHelper.getAllDataByCategory(param);
+//        if (movies.size() > 0) {
+//            filmAdapterRecycle.setData(movies);
+//        }else{
+//            filmAdapterRecycle.setData(new ArrayList<FilmParcelable>());
+//            showSnackbarMessage("Tidak ada data saat ini");
+//        }
 //        showLoading(true);
         filmAdapterRecycle.setOnItemClickCallback(new FilmAdapterRecycle.OnItemClickCallback() {
             @Override
-            public void onItemClicked(Movie data) {
-                Movie filmItemParcel = new Movie();
+            public void onItemClicked(FilmParcelable data) {
+                FilmParcelable filmItemParcel = new FilmParcelable();
+                filmItemParcel.setId(data.getId());
                 filmItemParcel.setCyrcleImage(data.getCyrcleImage());
                 filmItemParcel.setJudul(data.getJudul());
                 filmItemParcel.setDescription(data.getDescription());
