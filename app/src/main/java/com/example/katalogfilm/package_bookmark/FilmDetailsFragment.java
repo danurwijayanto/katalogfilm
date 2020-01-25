@@ -78,9 +78,9 @@ public class FilmDetailsFragment extends Fragment {
 //                Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
                 long result = BookmarkHelper.insert(values);
                 if (result > 0) {
-                    Toast.makeText(getContext(), "Suksess menambah data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Suksess menambah bookmark", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "Gagal menambah data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Gagal menambah bookmark", Toast.LENGTH_SHORT).show();
                 }
                 removeBookmark.setVisible(false);
                 doBookmark.setVisible(true);
@@ -90,14 +90,13 @@ public class FilmDetailsFragment extends Fragment {
                 long resultDelete = BookmarkHelper.deleteByJudul(String.valueOf(judulFilm));
                 if (resultDelete > 0) {
                     Toast.makeText(getContext(), "Sukses menghapus data", Toast.LENGTH_SHORT).show();
-                    getActivity().getFragmentManager().popBackStack();
+                    getActivity().getSupportFragmentManager().popBackStackImmediate();
                 } else {
                     Toast.makeText(getContext(), "Gagal menghapus data", Toast.LENGTH_SHORT).show();
                 }
 
                 removeBookmark.setVisible(false);
                 doBookmark.setVisible(true);
-                getActivity().getFragmentManager().popBackStack();
                 break;
         }
         return super.onOptionsItemSelected(item);

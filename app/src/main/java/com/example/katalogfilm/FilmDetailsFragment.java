@@ -73,7 +73,7 @@ public class FilmDetailsFragment extends Fragment {
                 Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
                 long result = BookmarkHelper.insert(values);
                 if (result > 0) {
-                    Toast.makeText(getContext(), "Suksess menambahkan bookmark", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Sukses menambahkan bookmark", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Gagal menambah bookmark", Toast.LENGTH_SHORT).show();
                 }

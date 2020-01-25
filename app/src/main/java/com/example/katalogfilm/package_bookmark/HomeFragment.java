@@ -20,6 +20,7 @@ import com.example.katalogfilm.package_bookmark.FilmDetailsFragment;
 import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.entity.Movie;
 import com.example.katalogfilm.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
         filmRecycle = view.findViewById(R.id.movie_list);
         filmRecycle.setHasFixedSize(true);
         progressBar = view.findViewById(R.id.progressBar);
-        Log.d("LOG_BAHASA_0", "showRecyclerList: "+ Locale.getDefault().toLanguageTag());
+//        Log.d("LOG_BAHASA_0", "showRecyclerList: "+ Locale.getDefault().toLanguageTag());
         int index = 1;
         if (getArguments() != null) {
             index  = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -84,11 +85,13 @@ public class HomeFragment extends Fragment {
         bookmarkHelper.open();
         // Ambil semua data di database
         ArrayList<Movie> movies = bookmarkHelper.getAllDataByCategory(param);
-        filmAdapterRecycle.setData(movies);
-
+        if (movies.size() > 0) {
+            filmAdapterRecycle.setData(movies);
+        }else{
+            filmAdapterRecycle.setData(new ArrayList<Movie>());
+            showSnackbarMessage("Tidak ada data saat ini");
+        }
 //        showLoading(true);
-
-
         filmAdapterRecycle.setOnItemClickCallback(new FilmAdapterRecycle.OnItemClickCallback() {
             @Override
             public void onItemClicked(Movie data) {
@@ -123,5 +126,14 @@ public class HomeFragment extends Fragment {
         } else {
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Tampilkan snackbar
+     *
+     * @param message inputan message
+     */
+    private void showSnackbarMessage(String message) {
+        Snackbar.make(filmRecycle, message, Snackbar.LENGTH_SHORT).show();
     }
 }
