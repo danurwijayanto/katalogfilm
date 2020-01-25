@@ -31,6 +31,12 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
         notifyDataSetChanged();
     }
 
+    public void removeItem(int position) {
+        this.listFilm.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, listFilm.size());
+    }
+
     public void clearData() {
         listFilm.clear();
     }

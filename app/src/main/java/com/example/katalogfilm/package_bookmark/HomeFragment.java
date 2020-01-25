@@ -1,7 +1,10 @@
 package com.example.katalogfilm.package_bookmark;
 
 import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +32,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private BroadcastReceiver mLangReceiver;
     private FilmViewModel mainViewModel;
+    private FilmAdapterRecycle filmAdapterRecycle;
 
     public static HomeFragment newInstance(int index) {
         HomeFragment fragment = new HomeFragment();
@@ -75,7 +79,7 @@ public class HomeFragment extends Fragment {
     private void showRecyclerList(final String param, String language) {
         filmRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        final FilmAdapterRecycle filmAdapterRecycle = new FilmAdapterRecycle();
+        filmAdapterRecycle = new FilmAdapterRecycle();
         filmAdapterRecycle.notifyDataSetChanged();
         filmRecycle.setAdapter(filmAdapterRecycle);
 
@@ -99,16 +103,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-//        BookmarkHelper bookmarkHelper = new BookmarkHelper(getActivity());
-//        bookmarkHelper.open();
-//        ArrayList<FilmParcelable> movies = bookmarkHelper.getAllDataByCategory(param);
-//        if (movies.size() > 0) {
-//            filmAdapterRecycle.setData(movies);
-//        }else{
-//            filmAdapterRecycle.setData(new ArrayList<FilmParcelable>());
-//            showSnackbarMessage("Tidak ada data saat ini");
-//        }
-//        showLoading(true);
+
         filmAdapterRecycle.setOnItemClickCallback(new FilmAdapterRecycle.OnItemClickCallback() {
             @Override
             public void onItemClicked(FilmParcelable data) {
@@ -121,19 +116,9 @@ public class HomeFragment extends Fragment {
                 filmItemParcel.setPosterImage(data.getPosterImage());
                 filmItemParcel.setCategory(param);
 
-                FilmDetailsFragment filmDetailsFragment = new FilmDetailsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("EXTRA_FILM", filmItemParcel);
-                filmDetailsFragment.setArguments(bundle);
-
-                FragmentManager mFragmentManager = getFragmentManager();
-                if (mFragmentManager != null) {
-                    mFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.frame_container, filmDetailsFragment, FilmDetailsFragment.class.getSimpleName())
-                            .addToBackStack(null)
-                            .commit();
-                }
+                Intent moveWithObjectIntent = new Intent(getContext(), FilmDetailActivity.class);
+                moveWithObjectIntent.putExtra(FilmDetailActivity.EXTRA_FILM, filmItemParcel);
+                startActivityForResult(moveWithObjectIntent, FilmDetailActivity.REQUEST_DETAIL);
             }
         });
     }
@@ -155,11 +140,27 @@ public class HomeFragment extends Fragment {
         Snackbar.make(filmRecycle, message, Snackbar.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    public void onResume(){
-//        mainViewModel.setData("Movie", "en-US");
-//        mainViewModel.setData("TV", "en-US");
-//        super.onResume();
-//        //OnResume Fragment
-//    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("request_code", "onActivityResult: "+requestCode);
+
+        if (data != null) {
+            // Update dan Delete memiliki request code sama akan tetapi result codenya berbeda
+            if (requestCode == FilmDetailActivity.REQUEST_DETAIL) {
+                /*
+                Akan dipanggil jika result codenya DELETE
+                Delete akan menghapus data dari list berdasarkan dari position
+                */
+                if (resultCode == FilmDetailActivity.RESULT_DELETE) {
+                    int position = data.getIntExtra(FilmDetailActivity.EXTRA_POSITION, 0);
+
+                    filmAdapterRecycle.removeItem(position);
+
+                    showSnackbarMessage("Satu item berhasil dihapus");
+                }
+            }
+        }
+    }
 }
