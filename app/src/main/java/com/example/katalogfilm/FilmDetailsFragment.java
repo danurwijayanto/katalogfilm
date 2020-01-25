@@ -25,6 +25,8 @@ import com.bumptech.glide.Glide;
 import com.example.katalogfilm.db.Bookmark;
 import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.entity.FilmParcelable;
+import com.example.katalogfilm.package_bookmark.BookmarkActivity;
+
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CATEGORY;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CYRCLE_IMAGE;
@@ -78,6 +80,11 @@ public class FilmDetailsFragment extends Fragment {
                     Toast.makeText(getContext(), "Gagal menambah bookmark", Toast.LENGTH_SHORT).show();
                 }
 
+                break;
+            case R.id.show_bookmark:
+//                Toast.makeText(this, "Show Bookmark", Toast.LENGTH_SHORT).show();
+                Intent moveIntent = new Intent(getContext(), BookmarkActivity.class);
+                startActivity(moveIntent);
                 break;
         }
         return super.onOptionsItemSelected(item);

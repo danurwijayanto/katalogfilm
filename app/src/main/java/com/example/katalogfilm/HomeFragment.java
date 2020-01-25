@@ -102,6 +102,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClicked(FilmParcelable data) {
                 FilmParcelable filmItemParcel = new FilmParcelable();
+                filmItemParcel.setId(data.getId());
                 filmItemParcel.setCyrcleImage(data.getCyrcleImage());
                 filmItemParcel.setJudul(data.getJudul());
                 filmItemParcel.setDescription(data.getDescription());

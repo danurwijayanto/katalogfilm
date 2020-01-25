@@ -45,6 +45,7 @@ public class FilmDetailsFragment extends Fragment {
     private String category;
     private MenuItem removeBookmark;
     private MenuItem doBookmark;
+    private MenuItem menuBookmark;
 
     public FilmDetailsFragment() {
         // Required empty public constructor
@@ -56,9 +57,11 @@ public class FilmDetailsFragment extends Fragment {
         inflater.inflate(R.menu.menu_details,menu);
         removeBookmark = menu.findItem(R.id.remove_bookmark);
         doBookmark = menu.findItem(R.id.add_bookmark);
+        menuBookmark = menu.findItem(R.id.show_bookmark);
 
         removeBookmark.setVisible(true);
         doBookmark.setVisible(false);
+        menuBookmark.setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

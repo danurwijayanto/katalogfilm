@@ -58,6 +58,7 @@ public class FilmViewModel extends ViewModel {
 
                         JSONObject film = list.getJSONObject(i);
                         FilmParcelable filmItems = new FilmParcelable();
+                        filmItems.setId(Integer.valueOf(film.getString("id")));
                         filmItems.setCyrcleImage(imageW92Url + "/w92" + film.getString("poster_path"));
                         filmItems.setJudul(film.getString(finalTitle));
                         filmItems.setPosterImage(imageW92Url + "/w185" + film.getString("poster_path"));

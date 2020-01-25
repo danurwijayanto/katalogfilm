@@ -154,4 +154,12 @@ public class HomeFragment extends Fragment {
     private void showSnackbarMessage(String message) {
         Snackbar.make(filmRecycle, message, Snackbar.LENGTH_SHORT).show();
     }
+
+//    @Override
+//    public void onResume(){
+//        mainViewModel.setData("Movie", "en-US");
+//        mainViewModel.setData("TV", "en-US");
+//        super.onResume();
+//        //OnResume Fragment
+//    }
 }
