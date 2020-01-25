@@ -44,6 +44,8 @@ public class FilmDetailsFragment extends Fragment {
     private TextView detailsRelease;
     private TextView detailsJudul;
     private ImageView detailsFilmImage;
+    private MenuItem languageSetting;
+
     private String judulFilm;
     private String descFilm;
     private String imageFilm;
@@ -58,6 +60,9 @@ public class FilmDetailsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         menu.clear();
         inflater.inflate(R.menu.menu_details,menu);
+        languageSetting = menu.findItem(R.id.action_change_settings);
+
+        languageSetting.setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -72,12 +77,12 @@ public class FilmDetailsFragment extends Fragment {
                 values.put(CYRCLE_IMAGE,imageFilm);
                 values.put(POSTER_IMAGE,imageFilm);
                 values.put(CATEGORY,category);
-                Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
+//                Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
                 long result = BookmarkHelper.insert(values);
                 if (result > 0) {
-                    Toast.makeText(getContext(), "Sukses menambahkan bookmark", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.sukses_bookmark), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(), "Gagal menambah bookmark", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getResources().getString(R.string.gagal_bookmark), Toast.LENGTH_SHORT).show();
                 }
 
                 break;

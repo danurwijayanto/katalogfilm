@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
         filmRecycle = view.findViewById(R.id.movie_list);
         filmRecycle.setHasFixedSize(true);
         progressBar = view.findViewById(R.id.progressBar);
-        Log.d("LOG_BAHASA_0", "showRecyclerList: "+ Locale.getDefault().toLanguageTag());
+//        Log.d("LOG_BAHASA_0", "showRecyclerList: "+ Locale.getDefault().toLanguageTag());
         int index = 1;
         if (getArguments() != null) {
             index  = getArguments().getInt(ARG_SECTION_NUMBER);

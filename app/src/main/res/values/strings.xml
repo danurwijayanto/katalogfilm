@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">Movie and TV Series Catalog</string>
     <string name="nama_film">Title</string>
-    <string name="lorem">lorem ipsum dolor sit amet</string>
-    <string name="object_received">Object</string>
-    <string name="content_text">Google officially announced its much-anticipated Pixel phones; the Pixel and Pixel XL, on October 4. We attended Google’s London UK event, mirroring the main one taking place in San Francisco, US, where the firm unwrapped the new Android 7.1 Nougat devices which will apparently usurp Google’s long-standing Nexus series.</string>
     <string name="content_specs_display">5.0 inches\n
     FHD AMOLED at 441ppi\n
     2.5D Corning® Gorilla® Glass 4</string>
@@ -16,33 +13,22 @@
     Video playback: up to 13 hours\n
     Audio playback (via headset): up to 110 hours\n
     Fast charging: up to 7 hours of use from only 15 minutes of charging</string>
-    <string name="stock">Stock hanya 5 buah</string>
-    <string name="specification">Spesifikasi</string>
-    <string name="display">Display</string>
-    <string name="size">Size</string>
-    <string name="battery">Battery</string>
-    <string name="seller">Dijual oleh</string>
-    <string name="my_name">Narenda Wicaksono</string>
-    <string name="buy">Beli</string>
-    <string name="dummy_value">$735</string>
-    <string name="dummy_photos">6 photos</string>
-    <string name="spesifikasi">spesifikasi</string>
     <string name="description">Description</string>
 
     <string name="tab_text_1">Movies</string>
     <string name="tab_text_2">TV Series</string>
-    <string name="content_tab_movies">Movies</string>
-    <string name="content_tab_tv">TV Series</string>
-    <string name="content_tab_text">This is Tab</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="details">Detail</string>
     <string name="judul">Title</string>
     <string name="tahun_rilis">Release</string>
     <string name="change_language_settings">Language</string>
-    <string name="do_bookmark">Do Bookmark</string>
-    <string name="show_bookmark">List Bookmark</string>
-    <string name="favourite_list">Favourite List</string>
-    <string name="remove_bookmark">Remove Bookmark</string>
+    <string name="do_bookmark" translatable="false">Do Bookmark</string>
+    <string name="favourite_list" translatable="false">Favourite List</string>
+    <string name="remove_bookmark" translatable="false">Remove Bookmark</string>
+
+    <string name="sukses_bookmark">Bookmark added success</string>
+    <string name="gagal_bookmark">Bookmark added success failed</string>
+    <string name="sukses_hapus_bookmark">Bookmark delete success</string>
+    <string name="gagal_hapus_bookmark">Bookmark delete failed</string>
 </resources>

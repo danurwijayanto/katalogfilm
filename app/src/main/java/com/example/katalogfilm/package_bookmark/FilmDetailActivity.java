@@ -35,6 +35,7 @@ public class FilmDetailActivity extends AppCompatActivity {
     private MenuItem removeBookmark;
     private MenuItem doBookmark;
     private MenuItem menuBookmark;
+    private MenuItem languageSetting;
     private TextView detailsFilmDescription;
     private TextView detailsRelease;
     private TextView detailsJudul;
@@ -81,10 +82,12 @@ public class FilmDetailActivity extends AppCompatActivity {
         removeBookmark = menu.findItem(R.id.remove_bookmark);
         doBookmark = menu.findItem(R.id.add_bookmark);
         menuBookmark = menu.findItem(R.id.show_bookmark);
+        languageSetting = menu.findItem(R.id.action_change_settings);
 
         removeBookmark.setVisible(true);
         doBookmark.setVisible(false);
         menuBookmark.setVisible(false);
+        languageSetting.setVisible(false);
         return true;
     }
 
@@ -102,9 +105,9 @@ public class FilmDetailActivity extends AppCompatActivity {
 //                Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
                 long result = BookmarkHelper.insert(values);
                 if (result > 0) {
-                    Toast.makeText(this, "Suksess menambah bookmark", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.sukses_bookmark), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Gagal menambah bookmark", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.gagal_bookmark), Toast.LENGTH_SHORT).show();
                 }
                 removeBookmark.setVisible(false);
                 doBookmark.setVisible(true);
@@ -113,13 +116,13 @@ public class FilmDetailActivity extends AppCompatActivity {
 
                 long resultDelete = BookmarkHelper.deleteByJudul(String.valueOf(judulFilm));
                 if (resultDelete > 0) {
-                    Toast.makeText(this, "Sukses menghapus data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.sukses_hapus_bookmark), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.putExtra(EXTRA_POSITION, resultDelete);
                     setResult(RESULT_DELETE, intent);
                     finish();
                 } else {
-                    Toast.makeText(this, "Gagal menghapus data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getResources().getString(R.string.gagal_hapus_bookmark), Toast.LENGTH_SHORT).show();
                 }
 
                 removeBookmark.setVisible(false);
