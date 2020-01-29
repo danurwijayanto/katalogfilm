@@ -31,4 +31,5 @@
     <string name="gagal_bookmark">Bookmark added success failed</string>
     <string name="sukses_hapus_bookmark">Bookmark delete success</string>
     <string name="gagal_hapus_bookmark">Bookmark delete failed</string>
+    <string name="search">search</string>
 </resources>
