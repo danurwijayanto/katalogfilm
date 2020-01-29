@@ -4,6 +4,7 @@ package com.example.katalogfilm;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -14,16 +15,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.katalogfilm.entity.FilmParcelable;
+import com.example.katalogfilm.package_bookmark.BookmarkActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -41,6 +45,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private FilmViewModel mainViewModel;
     private BroadcastReceiver mLangReceiver;
+    private FilmAdapterRecycle filmAdapterRecycle;
 
     public static HomeFragment newInstance(int index) {
         HomeFragment fragment = new HomeFragment();
@@ -59,6 +64,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -87,7 +93,7 @@ public class HomeFragment extends Fragment {
     private void showRecyclerList(final String param, String language) {
         filmRecycle.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        final FilmAdapterRecycle filmAdapterRecycle = new FilmAdapterRecycle();
+        filmAdapterRecycle = new FilmAdapterRecycle();
         filmAdapterRecycle.notifyDataSetChanged();
         filmRecycle.setAdapter(filmAdapterRecycle);
 
@@ -145,6 +151,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        inflater.inflate(R.menu.main_menu,menu);
+
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
         if (searchManager != null) {
@@ -153,15 +161,36 @@ public class HomeFragment extends Fragment {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
+                    // filter recycler view when query submitted
+                    filmAdapterRecycle.getFilter().filter(query);
                     return true;
                 }
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    return false;
+                    filmAdapterRecycle.getFilter().filter(newText);
+                    return true;
                 }
             });
         }
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_change_settings:
+                                    Toast.makeText(getActivity(), "HELLOW", Toast.LENGTH_SHORT).show();
+
+                Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(mIntent);
+                break;
+            case R.id.show_bookmark:
+//                Toast.makeText(this, "Show Bookmark", Toast.LENGTH_SHORT).show();
+                Intent moveIntent = new Intent(getActivity(), BookmarkActivity.class);
+                startActivity(moveIntent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

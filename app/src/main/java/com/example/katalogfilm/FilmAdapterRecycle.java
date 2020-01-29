@@ -1,8 +1,10 @@
 package com.example.katalogfilm;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,21 +19,29 @@ import java.util.ArrayList;
 
 public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.ListViewHolder> {
     private ArrayList<FilmParcelable> listFilm = new ArrayList<>();
+    private ArrayList<FilmParcelable> listFilmTmp = new ArrayList<>();
+
     private OnItemClickCallback onItemClickCallback;
 
     public void setData(ArrayList<FilmParcelable> items) {
         listFilm.clear();
         listFilm.addAll(items);
+        listFilmTmp.clear();
+        listFilmTmp.addAll(items);
         notifyDataSetChanged();
     }
 
     public void addItem(final FilmParcelable item) {
         listFilm.add(item);
+        listFilmTmp.add(item);
         notifyDataSetChanged();
     }
 
     public void clearData() {
+
         listFilm.clear();
+        listFilmTmp.clear();
+
     }
 
     public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
@@ -83,5 +93,46 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
 
     public interface OnItemClickCallback {
         void onItemClicked(FilmParcelable data);
+    }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                Log.d("performFiltering", "performFiltering: " + charSequence.toString());
+
+                if (charString.isEmpty()) {
+//                    FilterResults filterResults = new FilterResults();
+//                    filterResults.values = listFilmTmp;
+//                    return filterResults;
+                    listFilm = listFilmTmp;
+
+                } else {
+                    ArrayList<FilmParcelable> filteredListFilm = new ArrayList<>();
+
+                    for (FilmParcelable row : listFilm) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getJudul().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredListFilm.add(row);
+                        }
+                    }
+
+                    listFilm = filteredListFilm;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = listFilm;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                listFilm = (ArrayList<FilmParcelable>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }
