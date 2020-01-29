@@ -108,7 +108,7 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
                 } else {
                     ArrayList<FilmParcelable> filteredListFilm = new ArrayList<>();
 
-                    for (FilmParcelable row : listFilm) {
+                    for (FilmParcelable row : listFilmTmp) {
                         if (row.getJudul().toLowerCase().contains(charString.toLowerCase())) {
                             filteredListFilm.add(row);
                         }
