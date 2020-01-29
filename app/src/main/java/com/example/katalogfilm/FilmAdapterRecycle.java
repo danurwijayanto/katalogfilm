@@ -103,18 +103,12 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
                 Log.d("performFiltering", "performFiltering: " + charSequence.toString());
 
                 if (charString.isEmpty()) {
-//                    FilterResults filterResults = new FilterResults();
-//                    filterResults.values = listFilmTmp;
-//                    return filterResults;
                     listFilm = listFilmTmp;
 
                 } else {
                     ArrayList<FilmParcelable> filteredListFilm = new ArrayList<>();
 
                     for (FilmParcelable row : listFilm) {
-
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
                         if (row.getJudul().toLowerCase().contains(charString.toLowerCase())) {
                             filteredListFilm.add(row);
                         }

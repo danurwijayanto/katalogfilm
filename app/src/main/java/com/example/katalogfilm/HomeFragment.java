@@ -161,7 +161,6 @@ public class HomeFragment extends Fragment {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-//                    Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
                     // filter recycler view when query submitted
                     filmAdapterRecycle.getFilter().filter(query);
                     return true;
