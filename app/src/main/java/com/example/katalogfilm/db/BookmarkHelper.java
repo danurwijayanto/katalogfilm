@@ -90,7 +90,7 @@ public class BookmarkHelper {
         return database.delete(DATABASE_TABLE, TITLE + " = ?", new String[]{judul});
     }
 
-    public ArrayList<FilmParcelable> getAllData() {
+    public static ArrayList<FilmParcelable> getAllData() {
         Cursor cursor = database.query(TABLE_NAME, null, null, null, null, null, _ID + " ASC", null);
         cursor.moveToFirst();
         ArrayList<FilmParcelable> arrayList = new ArrayList<>();

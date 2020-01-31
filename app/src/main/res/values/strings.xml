@@ -32,4 +32,7 @@
     <string name="sukses_hapus_bookmark">Bookmark delete success</string>
     <string name="gagal_hapus_bookmark">Bookmark delete failed</string>
     <string name="search">search</string>
+    <string name="appwidget_text">Movie and TV Banner</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">empty</string>
 </resources>
