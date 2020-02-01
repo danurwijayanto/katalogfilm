@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.katalogfilm.entity.FilmParcelable;
 import com.example.katalogfilm.package_bookmark.BookmarkActivity;
+import com.example.katalogfilm.package_reminder.ReminderActivity;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -188,6 +189,10 @@ public class HomeFragment extends Fragment {
 //                Toast.makeText(this, "Show Bookmark", Toast.LENGTH_SHORT).show();
                 Intent moveIntent = new Intent(getActivity(), BookmarkActivity.class);
                 startActivity(moveIntent);
+                break;
+            case R.id.reminder:
+                Intent moveIntentReminder = new Intent(getActivity(), ReminderActivity.class);
+                startActivity(moveIntentReminder);
                 break;
         }
         return super.onOptionsItemSelected(item);

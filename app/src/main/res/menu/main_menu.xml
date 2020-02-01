@@ -16,5 +16,9 @@
             android:id="@+id/show_bookmark"
             android:title="@string/favourite_list"
             app:showAsAction="never"/>
+        <item
+            android:id="@+id/reminder"
+            android:title="@string/reminder"
+            app:showAsAction="never"/>
 <!--    </group>-->
 </menu>
