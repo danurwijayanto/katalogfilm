@@ -27,8 +27,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.katalogfilm.entity.FilmParcelable;
+import com.example.katalogfilm.entity.ReminderParcelable;
 import com.example.katalogfilm.package_bookmark.BookmarkActivity;
 import com.example.katalogfilm.package_reminder.ReminderActivity;
+import com.example.katalogfilm.package_reminder.ReminderPreferences;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -75,7 +77,7 @@ public class HomeFragment extends Fragment {
         filmRecycle = view.findViewById(R.id.movie_list);
         filmRecycle.setHasFixedSize(true);
         progressBar = view.findViewById(R.id.progressBar);
-//        Log.d("LOG_BAHASA_0", "showRecyclerList: "+ Locale.getDefault().toLanguageTag());
+
         int index = 1;
         if (getArguments() != null) {
             index  = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -180,8 +182,6 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_change_settings:
-                                    Toast.makeText(getActivity(), "HELLOW", Toast.LENGTH_SHORT).show();
-
                 Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
                 startActivity(mIntent);
                 break;

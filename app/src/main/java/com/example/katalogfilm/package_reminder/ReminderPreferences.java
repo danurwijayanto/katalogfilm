@@ -14,7 +14,7 @@ public class ReminderPreferences {
 
     private final SharedPreferences preferences;
 
-    ReminderPreferences(Context context) {
+    public ReminderPreferences(Context context) {
         preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
@@ -25,7 +25,7 @@ public class ReminderPreferences {
         editor.apply();
     }
 
-    ReminderParcelable getReminderPref() {
+    public ReminderParcelable getReminderPref() {
         ReminderParcelable model = new ReminderParcelable();
         model.setDailyReminder(preferences.getBoolean(DAILY_REMINDER, false));
         model.setReleaseReminder(preferences.getBoolean(RELEASE_REMINDER, false));

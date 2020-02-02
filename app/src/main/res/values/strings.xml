@@ -40,4 +40,5 @@
     <string name="reminder">Reminder Setting</string>
     <string name="daily_reminder_desc">Reminder to return to app</string>
     <string name="release_reminder_desc">Reminder showing the movie that released today</string>
+    <string name="sukses_simpan_preferences">Configuration successfully saved</string>
 </resources>
