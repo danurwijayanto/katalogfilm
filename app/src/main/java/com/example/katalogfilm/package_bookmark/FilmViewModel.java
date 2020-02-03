@@ -22,8 +22,6 @@ public class FilmViewModel extends ViewModel {
     private MutableLiveData<ArrayList<FilmParcelable>> listItems = new MutableLiveData<>();
 
     void setData(final String param, String language) {
-//        BookmarkHelper bookmarkHelper = new BookmarkHelper(getActivity());
-//        bookmarkHelper.open();
         ArrayList<FilmParcelable> movies = BookmarkHelper.getAllDataByCategory(param);
         listItems.postValue(movies);
 
