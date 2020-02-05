@@ -11,8 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".package_reminder.ReminderActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <receiver
+            android:name=".package_reminder.ReminderReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <activity
+            android:name=".package_reminder.ReminderActivity"
+            android:parentActivityName=".MainActivity" />
 
         <receiver android:name=".widget.ImagesBannerWidget">
             <intent-filter>
