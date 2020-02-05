@@ -18,7 +18,8 @@ public class ReminderActivity extends AppCompatActivity implements CompoundButto
     private ReminderParcelable reminderParcelable;
     private ReminderPreferences mReminderPreferences;
     private ReminderReceiver reminderReceiver;
-    String repeatDailyReminder = "07:00";
+    String repeatDailyReminder = "20:11";
+    String repeatReleaseReminder = "20:30";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +71,13 @@ public class ReminderActivity extends AppCompatActivity implements CompoundButto
 
         if (releaseReminder.isChecked()){
             reminderParcelable.setReleaseReminder(true);
+
+            reminderReceiver.setDailyReminder(this, ReminderReceiver.TYPE_RELEASE_REMINDER,
+                    repeatReleaseReminder, getResources().getString(R.string.reminder_back_to_app_message));
         }else{
             reminderParcelable.setReleaseReminder(false);
+
+            reminderReceiver.cancelReminder(this, ReminderReceiver.TYPE_RELEASE_REMINDER);
         }
 
         reminderPreferences.setReminderPref(reminderParcelable);

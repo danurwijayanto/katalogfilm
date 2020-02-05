@@ -17,14 +17,24 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.katalogfilm.BuildConfig;
 import com.example.katalogfilm.MainActivity;
 import com.example.katalogfilm.R;
+import com.example.katalogfilm.entity.FilmParcelable;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ReminderReceiver extends BroadcastReceiver {
 
@@ -76,6 +86,10 @@ public class ReminderReceiver extends BroadcastReceiver {
         Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show();
     }
 
+    public void setReleaseReminder(Context context, String type, String time, String message) {
+
+    }
+
     public boolean isDateInvalid(String date, String format) {
         try {
             DateFormat df = new SimpleDateFormat(format, Locale.getDefault());
@@ -87,46 +101,113 @@ public class ReminderReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showReminderNotification(Context context, String title, String message, int notifId) {
-        String CHANNEL_ID = "Channel_1";
-        String CHANNEL_NAME = "Reminder Manager channel";
+    private void showReminderNotification(final Context context, final String title, final String message, final int notifId) {
+        final String CHANNEL_ID = "Channel_1";
+        final String CHANNEL_NAME = "Reminder Manager channel";
+        String API_KEY = BuildConfig.MOVIE_DB_API_KEY;
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedTodayDate = simpleDateFormat.format(today);
 
         Intent intentOpenCatalogApps = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntentOpenCatalogApps = PendingIntent.getActivity(context, 0, intentOpenCatalogApps, 0);
+        final PendingIntent pendingIntentOpenCatalogApps = PendingIntent.getActivity(context, 0, intentOpenCatalogApps, 0);
+        final NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        final NotificationCompat.Builder[] mBuilder = new NotificationCompat.Builder[1];
+        Log.d("log1", "showReminderNotification: ");
+        if (notifId == 100) {
+            Log.d("log2", "showReminderNotification: ");
 
-        NotificationManager notificationManagerCompat = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentIntent(pendingIntentOpenCatalogApps)
-                .setSmallIcon(R.drawable.ic_notifications_active)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setColor(ContextCompat.getColor(context, android.R.color.transparent))
-                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                .setSound(alarmSound);
+            mBuilder[0] = new NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setContentIntent(pendingIntentOpenCatalogApps)
+                    .setSmallIcon(R.drawable.ic_notifications_active)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setColor(ContextCompat.getColor(context, android.R.color.transparent))
+                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                    .setSound(alarmSound);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
-                    CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                        CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_DEFAULT);
 
-            channel.enableVibration(true);
-            channel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
+                channel.enableVibration(true);
+                channel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
+                Log.d("CHANNEL_ID", "showReminderNotification: " + CHANNEL_ID);
+                Log.d("mBuilder", "showReminderNotification: " + mBuilder);
+                mBuilder[0].setChannelId(CHANNEL_ID);
 
-            builder.setChannelId(CHANNEL_ID);
+                if (notificationManagerCompat != null) {
+                    notificationManagerCompat.createNotificationChannel(channel);
+                }
+            }
+
+            Notification notification = mBuilder[0].build();
 
             if (notificationManagerCompat != null) {
-                notificationManagerCompat.createNotificationChannel(channel);
+                notificationManagerCompat.notify(notifId, notification);
             }
+
+        }else if (notifId == 101) {
+            AsyncHttpClient client = new AsyncHttpClient();
+            String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&primary_release_date.gte=" + formattedTodayDate + "&&primary_release_date.lte=" + formattedTodayDate;
+
+            client.get(url, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    try {
+                        String result = new String(responseBody);
+                        JSONObject responseObject = new JSONObject(result);
+                        JSONArray list = responseObject.getJSONArray("results");
+
+                        for (int i = 0; i < list.length(); i++) {
+
+                            JSONObject film = list.getJSONObject(i);
+                            mBuilder[0] = new NotificationCompat.Builder(context, CHANNEL_ID)
+                                    .setSmallIcon(R.drawable.ic_notifications_active)
+                                    .setContentTitle(film.getString("title"))
+                                    .setContentText(film.getString("title"))
+                                    .setColor(ContextCompat.getColor(context, android.R.color.transparent))
+                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                                    .setSound(alarmSound);
+
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                                NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                                        CHANNEL_NAME,
+                                        NotificationManager.IMPORTANCE_DEFAULT);
+
+                                channel.enableVibration(true);
+                                channel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
+
+                                mBuilder[0].setChannelId(CHANNEL_ID);
+
+                                if (notificationManagerCompat != null) {
+                                    notificationManagerCompat.createNotificationChannel(channel);
+                                }
+                            }
+
+                            Notification notification = mBuilder[0].build();
+
+                            if (notificationManagerCompat != null) {
+                                notificationManagerCompat.notify(notifId, notification);
+                            }
+
+                        }
+
+                    } catch (Exception e) {
+                        Log.d("Exception", e.getMessage());
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    Log.d("Exception", error.getMessage());
+                }
+            });
         }
-
-        Notification notification = builder.build();
-
-        if (notificationManagerCompat != null) {
-            notificationManagerCompat.notify(notifId, notification);
-        }
-
     }
 
     public void cancelReminder(Context context, String type) {
