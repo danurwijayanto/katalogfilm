@@ -39,4 +39,7 @@
     <string name="release_reminder_desc">Pengingat menunjukkan film yang dirilis hari ini</string>
     <string name="sukses_simpan_preferences">Konfigurasi berhasil disimpan</string>
     <string name="reminder_back_to_app_message">Film catalog kehilanganmu !</string>
+    <string name="reminder_release">Film yang rilis hari ini</string>
+    <string name="new_movies">%d Film Baru</string>
+
 </resources>
