@@ -3,6 +3,7 @@ package com.example.katalogfilm;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.DESCRIPTION;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.POSTER_IMAGE;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.TANGGAL_RILIS;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.TITLE;
+import static com.example.katalogfilm.db.DatabaseContract.BookmarkColumns.CONTENT_URI;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +72,7 @@ public class FilmDetailsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_bookmark:
+
                 ContentValues values = new ContentValues();
                 values.put(TITLE, judulFilm);
                 values.put(DESCRIPTION, descFilm);
@@ -77,17 +80,16 @@ public class FilmDetailsFragment extends Fragment {
                 values.put(CYRCLE_IMAGE,imageFilm);
                 values.put(POSTER_IMAGE,imageFilm);
                 values.put(CATEGORY,category);
-//                Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
-                long result = BookmarkHelper.insert(values);
-                if (result > 0) {
+
+//                long result = BookmarkHelper.insert(values);
+                Uri result = getActivity().getContentResolver().insert(CONTENT_URI, values);
+                if (Integer.valueOf(result.getLastPathSegment()) > 0) {
                     Toast.makeText(getContext(), getResources().getString(R.string.sukses_bookmark), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), getResources().getString(R.string.gagal_bookmark), Toast.LENGTH_SHORT).show();
                 }
-
                 break;
             case R.id.show_bookmark:
-//                Toast.makeText(this, "Show Bookmark", Toast.LENGTH_SHORT).show();
                 Intent moveIntent = new Intent(getContext(), BookmarkActivity.class);
                 startActivity(moveIntent);
                 break;

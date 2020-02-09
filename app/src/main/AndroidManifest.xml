@@ -3,6 +3,8 @@
     package="com.example.katalogfilm">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="com.example.katalogfilm.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.example.katalogfilm.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -11,10 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name=".provider.BookmarkProvider"
+            android:authorities="com.example.katalogfilm"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.example.katalogfilm.READ_DATABASE"
+            android:writePermission="com.example.katalogfilm.WRITE_DATABASE"></provider>
+
         <receiver
             android:name=".package_reminder.ReminderReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
 
         <activity
             android:name=".package_reminder.ReminderActivity"

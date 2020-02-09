@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.DESCRIPTION;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.POSTER_IMAGE;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.TANGGAL_RILIS;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.TITLE;
+import static com.example.katalogfilm.db.DatabaseContract.BookmarkColumns.CONTENT_URI;
 
 public class FilmDetailActivity extends AppCompatActivity {
     public static final String EXTRA_FILM = "extra_selected_value";
@@ -45,6 +47,8 @@ public class FilmDetailActivity extends AppCompatActivity {
     private String imageFilm;
     private String rilisFilm;
     private String category;
+    private Uri uriWithId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +106,11 @@ public class FilmDetailActivity extends AppCompatActivity {
                 values.put(CYRCLE_IMAGE,imageFilm);
                 values.put(POSTER_IMAGE,imageFilm);
                 values.put(CATEGORY,category);
-//                Log.d("JUDUL", "onOptionsItemSelected: "+judulFilm);
-                long result = BookmarkHelper.insert(values);
-                if (result > 0) {
+
+                getContentResolver().insert(CONTENT_URI, values);
+
+                Uri result = getContentResolver().insert(CONTENT_URI, values);
+                if (Integer.valueOf(result.getLastPathSegment()) > 0) {
                     Toast.makeText(this, getResources().getString(R.string.sukses_bookmark), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, getResources().getString(R.string.gagal_bookmark), Toast.LENGTH_SHORT).show();
@@ -113,8 +119,10 @@ public class FilmDetailActivity extends AppCompatActivity {
                 doBookmark.setVisible(true);
                 break;
             case R.id.remove_bookmark:
+                uriWithId = Uri.parse(CONTENT_URI + "/deletebytitle/" + String.valueOf(judulFilm));
 
-                long resultDelete = BookmarkHelper.deleteByJudul(String.valueOf(judulFilm));
+                long resultDelete = getContentResolver().delete(uriWithId, null, null);
+//                long resultDelete = BookmarkHelper.deleteByJudul(String.valueOf(judulFilm));
                 if (resultDelete > 0) {
                     Toast.makeText(this, getResources().getString(R.string.sukses_hapus_bookmark), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();

@@ -142,4 +142,16 @@ public class BookmarkHelper {
         cursor.close();
         return arrayList;
     }
+
+    public static Cursor getAllDataByCategoryCursor(String category) {
+        return database.query(
+                TABLE_NAME,
+                null,
+                CATEGORY + " = ?",
+                new String[]{category},
+                null,
+                null,
+                _ID + " ASC",
+                null);
+    }
 }

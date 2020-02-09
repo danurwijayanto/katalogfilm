@@ -12,6 +12,15 @@ public class FilmParcelable implements Parcelable {
     private String cyrcleImage;
     private String posterImage;
 
+    public FilmParcelable(int id, String title, String description, String release_date, String poster_image, String cyrcle_image) {
+        this.id = id;
+        this.judul = title;
+        this.description = description;
+        this.tanggalRilis = release_date;
+        this.cyrcleImage = cyrcle_image;
+        this.posterImage = poster_image;
+    }
+
     public String getCategory() {
         return category;
     }

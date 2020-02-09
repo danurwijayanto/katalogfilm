@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
         // Ambil semua data di database
 
         mainViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(FilmViewModel.class);
-        mainViewModel.setData(param, language);
+        mainViewModel.setData(param, language, getActivity());
 
         showLoading(true);
 
