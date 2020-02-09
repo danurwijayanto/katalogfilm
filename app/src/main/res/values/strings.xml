@@ -33,7 +33,6 @@
     <string name="gagal_hapus_bookmark">Bookmark delete failed</string>
     <string name="search">search</string>
     <string name="appwidget_text">Movie and TV Banner</string>
-    <string name="add_widget">Add widget</string>
     <string name="empty_text">Empty</string>
     <string name="daily_reminder">Daily Reminder</string>
     <string name="release_reminder">Release Reminder</string>

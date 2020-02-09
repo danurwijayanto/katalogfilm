@@ -1,7 +1,6 @@
 package com.example.katalogfilm.helper;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import com.example.katalogfilm.db.Bookmark;
 import com.example.katalogfilm.entity.FilmParcelable;

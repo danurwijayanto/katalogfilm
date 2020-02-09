@@ -28,18 +28,5 @@
     <string name="gagal_bookmark">Gagal menambahkan bookmark</string>
     <string name="sukses_hapus_bookmark">Sukses menghapus bookmark</string>
     <string name="gagal_hapus_bookmark">Gagal menghapus bookmark</string>
-    <string name="search">pencarian</string>
-    <string name="appwidget_text">Banner Film dan TV</string>
-    <string name="add_widget">Tambah widget</string>
-    <string name="empty_text">Kosong</string>
-    <string name="daily_reminder">Pengingat Harian</string>
-    <string name="release_reminder">Pengingat Rilis</string>
-    <string name="reminder">Pengaturan Pengingat</string>
-    <string name="daily_reminder_desc">Pengingat untuk membuka aplikasi</string>
-    <string name="release_reminder_desc">Pengingat menunjukkan film yang dirilis hari ini</string>
-    <string name="sukses_simpan_preferences">Konfigurasi berhasil disimpan</string>
-    <string name="reminder_back_to_app_message">Film catalog kehilanganmu !</string>
-    <string name="reminder_release">Film yang rilis hari ini</string>
-    <string name="new_movies">%d Film Baru</string>
 
 </resources>

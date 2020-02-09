@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.katalogfilm.db.BookmarkHelper;
-import com.example.katalogfilm.db.DbHelper;
 
 import static com.example.katalogfilm.db.DatabaseContract.AUTHORITY;
 import static com.example.katalogfilm.db.DatabaseContract.BookmarkColumns.CONTENT_URI;

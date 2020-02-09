@@ -5,13 +5,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,13 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
-import com.example.katalogfilm.db.Bookmark;
-import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.entity.FilmParcelable;
 import com.example.katalogfilm.package_bookmark.BookmarkActivity;
 
-import static com.example.katalogfilm.db.Bookmark.BookmarkColumns;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CATEGORY;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.CYRCLE_IMAGE;
 import static com.example.katalogfilm.db.Bookmark.BookmarkColumns.DESCRIPTION;
@@ -81,7 +75,6 @@ public class FilmDetailsFragment extends Fragment {
                 values.put(POSTER_IMAGE,imageFilm);
                 values.put(CATEGORY,category);
 
-//                long result = BookmarkHelper.insert(values);
                 Uri result = getActivity().getContentResolver().insert(CONTENT_URI, values);
                 if (Integer.valueOf(result.getLastPathSegment()) > 0) {
                     Toast.makeText(getContext(), getResources().getString(R.string.sukses_bookmark), Toast.LENGTH_SHORT).show();

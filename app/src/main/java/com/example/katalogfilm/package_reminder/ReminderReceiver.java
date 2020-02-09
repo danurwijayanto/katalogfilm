@@ -23,8 +23,6 @@ import com.example.katalogfilm.R;
 import com.example.katalogfilm.entity.FilmParcelable;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.SyncHttpClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

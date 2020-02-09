@@ -1,15 +1,12 @@
 package com.example.katalogfilm.package_bookmark;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-import android.widget.Toast;
-
 import com.example.katalogfilm.R;
-import com.example.katalogfilm.package_bookmark.SectionsPagerAdapter;
-import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.entity.FilmParcelable;
 import com.google.android.material.tabs.TabLayout;
 

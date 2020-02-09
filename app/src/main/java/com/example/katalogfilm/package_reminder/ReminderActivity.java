@@ -1,12 +1,11 @@
 package com.example.katalogfilm.package_reminder;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.katalogfilm.R;
 import com.example.katalogfilm.entity.ReminderParcelable;

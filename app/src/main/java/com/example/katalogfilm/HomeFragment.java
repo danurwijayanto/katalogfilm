@@ -6,6 +6,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -15,27 +23,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.Settings;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.example.katalogfilm.entity.FilmParcelable;
-import com.example.katalogfilm.entity.ReminderParcelable;
 import com.example.katalogfilm.package_bookmark.BookmarkActivity;
 import com.example.katalogfilm.package_reminder.ReminderActivity;
-import com.example.katalogfilm.package_reminder.ReminderPreferences;
 
 import java.util.ArrayList;
-import java.util.Locale;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 
 /**

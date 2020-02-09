@@ -3,7 +3,6 @@ package com.example.katalogfilm.package_bookmark;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.katalogfilm.package_bookmark.FilmViewModel;
-import com.example.katalogfilm.entity.FilmParcelable;
-import com.example.katalogfilm.db.BookmarkHelper;
 import com.example.katalogfilm.R;
+import com.example.katalogfilm.entity.FilmParcelable;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
