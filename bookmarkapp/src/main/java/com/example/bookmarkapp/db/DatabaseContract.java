@@ -1,4 +1,4 @@
-package com.example.katalogfilm.db;
+package com.example.bookmarkapp.db;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

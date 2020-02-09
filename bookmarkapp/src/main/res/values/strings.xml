@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Movie and TV Series Bookmark</string>
+    <string name="nama_film">Title</string>
+    <string name="content_specs_display">5.0 inches\n
+    FHD AMOLED at 441ppi\n
+    2.5D Corning® Gorilla® Glass 4</string>
+    <string name="content_specs_size">5.6 x 2.7 x 0.2 ~ 0.3 inches 143.8 x 69.5 x 7.3 ~ 8.5 mm</string>
+    <string name="content_specs_battery">2,770 mAh battery\n
+    Standby time (LTE): up to 19 days\n
+    Talk time (3g/WCDMA): up to 26 hours\n
+    Internet use time (Wi-Fi): up to 13 hours\n
+    Internet use time (LTE): up to 13 hours\n
+    Video playback: up to 13 hours\n
+    Audio playback (via headset): up to 110 hours\n
+    Fast charging: up to 7 hours of use from only 15 minutes of charging</string>
+    <string name="description">Description</string>
+
+    <string name="tab_text_1">Movies</string>
+    <string name="tab_text_2">TV Series</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="details">Detail</string>
+    <string name="judul">Title</string>
+    <string name="tahun_rilis">Release</string>
+    <string name="change_language_settings">Language</string>
+    <string name="do_bookmark" translatable="false">Do Bookmark</string>
+    <string name="favourite_list" translatable="false">Favourite List</string>
+    <string name="remove_bookmark" translatable="false">Remove Bookmark</string>
+
+    <string name="sukses_bookmark">Bookmark added success</string>
+    <string name="gagal_bookmark">Bookmark added success failed</string>
+    <string name="sukses_hapus_bookmark">Bookmark delete success</string>
+    <string name="gagal_hapus_bookmark">Bookmark delete failed</string>
+    <string name="search">search</string>
+    <string name="appwidget_text">Movie and TV Banner</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">Empty</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="reminder">Reminder Setting</string>
+    <string name="daily_reminder_desc">Reminder to return to app</string>
+    <string name="release_reminder_desc">Reminder showing the movie that released today</string>
+    <string name="sukses_simpan_preferences">Configuration successfully saved</string>
+    <string name="reminder_back_to_app_message">Catalog Movie missing you !</string>
+    <string name="reminder_release">Movie that released today</string>
+    <string name="new_movies">%d New Movies</string>
+</resources>
