@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,7 @@ public class HomeFragment extends Fragment {
     private FilmViewModel mainViewModel;
     private BroadcastReceiver mLangReceiver;
     private FilmAdapterRecycle filmAdapterRecycle;
+    private int index;
 
     public static HomeFragment newInstance(int index) {
         HomeFragment fragment = new HomeFragment();
@@ -70,7 +72,7 @@ public class HomeFragment extends Fragment {
         filmRecycle.setHasFixedSize(true);
         progressBar = view.findViewById(R.id.progressBar);
 
-        int index = 1;
+        index = 1;
         if (getArguments() != null) {
             index  = getArguments().getInt(ARG_SECTION_NUMBER);
         }
@@ -147,7 +149,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.main_menu,menu);
-
+        final String activeTab;
+        if (index == 1){
+            activeTab = "movie";
+        }else{
+            activeTab = "tv";
+        }
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
         if (searchManager != null) {
@@ -157,12 +164,12 @@ public class HomeFragment extends Fragment {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     // filter recycler view when query submitted
-                    filmAdapterRecycle.getFilter().filter(query);
+                    filmAdapterRecycle.getFilter(activeTab).filter(query);
                     return true;
                 }
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    filmAdapterRecycle.getFilter().filter(newText);
+                    filmAdapterRecycle.getFilter(activeTab).filter(newText);
                     return true;
                 }
             });

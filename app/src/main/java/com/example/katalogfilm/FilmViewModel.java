@@ -20,6 +20,8 @@ import cz.msebera.android.httpclient.Header;
 public class FilmViewModel extends ViewModel {
     private static final String API_KEY = BuildConfig.MOVIE_DB_API_KEY;
     private MutableLiveData<ArrayList<FilmParcelable>> listItems = new MutableLiveData<>();
+    private MutableLiveData<FilmParcelable> listTempItems = new MutableLiveData<>();
+
 
     void setData(final String param, String language) {
         AsyncHttpClient client = new AsyncHttpClient();

@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        bookmarkHelper = bookmarkHelper.getInstance(getApplicationContext());
-//        bookmarkHelper.open();
-
         SectionsPagerAdapter sectionPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionPagerAdapter);
@@ -38,6 +35,5 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        bookmarkHelper.close();
     }
 }

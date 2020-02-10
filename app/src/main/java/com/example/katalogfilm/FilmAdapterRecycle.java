@@ -14,14 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.katalogfilm.entity.FilmParcelable;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.ListViewHolder> {
     private ArrayList<FilmParcelable> listFilm = new ArrayList<>();
     private ArrayList<FilmParcelable> listFilmTmp = new ArrayList<>();
 
     private OnItemClickCallback onItemClickCallback;
+    private String API_KEY = BuildConfig.MOVIE_DB_API_KEY;
+    private final String imageW92Url = "https://image.tmdb.org/t/p";
+
 
     public void setData(ArrayList<FilmParcelable> items) {
         listFilm.clear();
@@ -95,31 +105,70 @@ public class FilmAdapterRecycle extends RecyclerView.Adapter<FilmAdapterRecycle.
         void onItemClicked(FilmParcelable data);
     }
 
-    public Filter getFilter() {
+    public Filter getFilter(final String activeTab) {
+        final AsyncHttpClient client = new AsyncHttpClient();
+        Log.d("dancuk", "onSuccess: "+ activeTab);
+
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
-                Log.d("performFiltering", "performFiltering: " + charSequence.toString());
 
                 if (charString.isEmpty()) {
                     listFilm = listFilmTmp;
 
                 } else {
-                    ArrayList<FilmParcelable> filteredListFilm = new ArrayList<>();
+                    final ArrayList<FilmParcelable> filteredListFilm = new ArrayList<>();
 
-                    for (FilmParcelable row : listFilmTmp) {
-                        if (row.getJudul().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredListFilm.add(row);
+                    String url = "https://api.themoviedb.org/3/search/" + activeTab + "?api_key=" + API_KEY + "&language=en-US&query="+charString;
+                    client.get(url, new AsyncHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            try {
+                                String result = new String(responseBody);
+                                JSONObject responseObject = new JSONObject(result);
+                                JSONArray list = responseObject.getJSONArray("results");
+
+                                for (int i = 0; i < list.length(); i++) {
+                                    JSONObject film = list.getJSONObject(i);
+                                    FilmParcelable filmItems = new FilmParcelable();
+
+                                    if (activeTab == "tv") {
+                                        filmItems.setId(Integer.valueOf(film.getString("id")));
+                                        filmItems.setCyrcleImage(imageW92Url + "/w92" + film.getString("poster_path"));
+                                        filmItems.setJudul(film.getString("name"));
+                                        filmItems.setPosterImage(imageW92Url + "/w185" + film.getString("poster_path"));
+                                        filmItems.setTanggalRilis(film.getString("first_air_date"));
+                                        filmItems.setDescription(film.getString("overview"));
+                                    }else{
+                                        filmItems.setId(Integer.valueOf(film.getString("id")));
+                                        filmItems.setCyrcleImage(imageW92Url + "/w92" + film.getString("poster_path"));
+                                        filmItems.setJudul(film.getString("title"));
+                                        filmItems.setPosterImage(imageW92Url + "/w185" + film.getString("poster_path"));
+                                        filmItems.setTanggalRilis(film.getString("release_date"));
+                                        filmItems.setDescription(film.getString("overview"));
+                                    }
+
+                                    filteredListFilm.add(filmItems);
+                                }
+                                listFilm = filteredListFilm;
+                            } catch (Exception e) {
+                                Log.d("Exception", e.getMessage());
+                            }
                         }
-                    }
 
-                    listFilm = filteredListFilm;
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                            Log.d("Exception", error.getMessage());
+                        }
+                    });
                 }
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = listFilm;
                 return filterResults;
+
             }
 
             @Override
